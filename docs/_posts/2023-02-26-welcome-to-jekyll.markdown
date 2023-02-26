@@ -1,3 +1,3 @@
 test
-![下载](/assest/imags/1.jpeg)
+![下载](img/1.jpeg)
 
