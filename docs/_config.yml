@@ -17,20 +17,35 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
+# https://mmistakes.github.io/minimal-mistakes/docs/configuration/
+
+author:
+  name: zengzzzzz
+  avatar: "/assets/images/1.jpeg"
+  bio: "i am a software engineer from ShenZhen, China"
+  location: "ShenZhen China"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "zengzzzzz@gmail.com"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/zengzzzzz"
+       
+
 minimal_mistakes_skin: "contrast" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 locale: "en"
 title: zengzzzzz 
 subtitle: "the more you know, the more you know you don't know"
-email: zengzzzzz@gmail.com
-name: zengzzzzz
 description: >- # this means to ignore newlines until "baseurl:"
  some blogs about learning and life
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://zengzzzzz.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-teaser: "/assets/images/1.jpeg"
+# teaser: "/assets/images/1.jpeg"
 logo: "/assets/images/1.jpeg"
-github_username:  zengzzzzz
 # https://mmistakes.github.io/minimal-mistakes/docs/configuration/
+time_zone: Asia/Shanghai
+
 defaults:
   # _posts
   - scope:
@@ -39,8 +54,29 @@ defaults:
     values:
       show_date: true
       read_time: true
+      comments: true
+# RSS
+atom_feed:
+  hide: false
+
+search: true
+lunr:
+  search_within_pages: true
 
 
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+
+
+
+email: zengzzzzz@gmail.com
+name: zengzzzzz
+github_username:  zengzzzzz
+  
 # Build settings
 # theme: minima
 # remote_theme: 
