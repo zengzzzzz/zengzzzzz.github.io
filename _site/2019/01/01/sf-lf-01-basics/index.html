@@ -135,6 +135,8 @@
                         
                         
                         
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -318,8 +320,8 @@ I posted it on blog mainly for my own references purpose.</p>
 
 <div class="language-coq highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-</pre></td><td class="rouge-code"><pre><span class="k">Notation</span><span class="w"> </span><span class="s2">"x &amp;&amp; y"</span><span class="w"> </span><span class="p">:=</span><span class="w"> </span><span class="p">(</span><span class="no">andb</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="p">)</span><span class="pi">.</span><span class="w">
-</span><span class="k">Notation</span><span class="w"> </span><span class="s2">"x || y"</span><span class="w"> </span><span class="p">:=</span><span class="w"> </span><span class="p">(</span><span class="no">orb</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="p">)</span><span class="pi">.</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Notation</span><span class="w"> </span><span class="s2">"x &amp;&amp; y"</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="no">andb</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="o">).</span><span class="w">
+</span><span class="k">Notation</span><span class="w"> </span><span class="s2">"x || y"</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="no">orb</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="o">).</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>can go pretty far with unicode char…</p>
@@ -335,14 +337,14 @@ I posted it on blog mainly for my own references purpose.</p>
 7
 8
 9
-</pre></td><td class="rouge-code"><pre><span class="k">Notation</span><span class="w"> </span><span class="s2">"x + y"</span><span class="w"> </span><span class="p">:=</span><span class="w"> </span><span class="p">(</span><span class="no">plus</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="p">)</span><span class="w">
-                      </span><span class="p">(</span><span class="kp">at</span><span class="w"> </span><span class="no">level</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="no">left</span><span class="w"> </span><span class="no">associativity</span><span class="p">)</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Notation</span><span class="w"> </span><span class="s2">"x + y"</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="no">plus</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="o">)</span><span class="w">
+                      </span><span class="o">(</span><span class="kp">at</span><span class="w"> </span><span class="no">level</span><span class="w"> </span><span class="mi">50</span><span class="o">,</span><span class="w"> </span><span class="no">left</span><span class="w"> </span><span class="no">associativity</span><span class="o">)</span><span class="w">
                       </span><span class="p">:</span><span class="w"> </span><span class="no">nat_scope</span><span class="pi">.</span><span class="w">
-</span><span class="k">Notation</span><span class="w"> </span><span class="s2">"x - y"</span><span class="w"> </span><span class="p">:=</span><span class="w"> </span><span class="p">(</span><span class="no">minus</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="p">)</span><span class="w">
-                      </span><span class="p">(</span><span class="kp">at</span><span class="w"> </span><span class="no">level</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="no">left</span><span class="w"> </span><span class="no">associativity</span><span class="p">)</span><span class="w">
+</span><span class="k">Notation</span><span class="w"> </span><span class="s2">"x - y"</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="no">minus</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="o">)</span><span class="w">
+                      </span><span class="o">(</span><span class="kp">at</span><span class="w"> </span><span class="no">level</span><span class="w"> </span><span class="mi">50</span><span class="o">,</span><span class="w"> </span><span class="no">left</span><span class="w"> </span><span class="no">associativity</span><span class="o">)</span><span class="w">
                       </span><span class="p">:</span><span class="w"> </span><span class="no">nat_scope</span><span class="pi">.</span><span class="w">
-</span><span class="k">Notation</span><span class="w"> </span><span class="s2">"x * y"</span><span class="w"> </span><span class="p">:=</span><span class="w"> </span><span class="p">(</span><span class="no">mult</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="p">)</span><span class="w">
-                      </span><span class="p">(</span><span class="kp">at</span><span class="w"> </span><span class="no">level</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="no">left</span><span class="w"> </span><span class="no">associativity</span><span class="p">)</span><span class="w">
+</span><span class="k">Notation</span><span class="w"> </span><span class="s2">"x * y"</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="no">mult</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="o">)</span><span class="w">
+                      </span><span class="o">(</span><span class="kp">at</span><span class="w"> </span><span class="no">level</span><span class="w"> </span><span class="mi">40</span><span class="o">,</span><span class="w"> </span><span class="no">left</span><span class="w"> </span><span class="no">associativity</span><span class="o">)</span><span class="w">
                       </span><span class="p">:</span><span class="w"> </span><span class="no">nat_scope</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
@@ -361,11 +363,11 @@ I posted it on blog mainly for my own references purpose.</p>
 3
 4
 5
-</pre></td><td class="rouge-code"><pre><span class="k">Inductive</span><span class="w"> </span><span class="no">color</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kr">Type</span><span class="w"> </span><span class="p">:=</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">black</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">white</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">primary</span><span class="w"> </span><span class="p">(</span><span class="no">p</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">rgb</span><span class="p">)</span><span class="pi">.</span><span class="w">      </span><span class="c">(* ADT, need to name arg, useful in proof *)</span><span class="w">
-  </span><span class="err">|</span><span class="w"> </span><span class="no">primary</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">rgb</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">color</span><span class="pi">.</span><span class="w"> </span><span class="c">(* GADT style, dependent type *)</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Inductive</span><span class="w"> </span><span class="no">color</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kr">Type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">black</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">white</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">primary</span><span class="w"> </span><span class="o">(</span><span class="no">p</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">rgb</span><span class="o">).</span><span class="w">      </span><span class="c">(* ADT, need to name arg, useful in proof *)</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">primary</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">rgb</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="no">color</span><span class="pi">.</span><span class="w"> </span><span class="c">(* GADT style, dependent type *)</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <h3 id="syntax-for-arguments-having-the-same-type">Syntax for arguments having the same type</h3>
@@ -376,14 +378,14 @@ I posted it on blog mainly for my own references purpose.</p>
 
 <div class="language-coq highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-</pre></td><td class="rouge-code"><pre><span class="k">Inductive</span><span class="w"> </span><span class="no">nybble</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kr">Type</span><span class="w"> </span><span class="p">:=</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">bits</span><span class="w"> </span><span class="p">(</span><span class="no">b0</span><span class="w"> </span><span class="no">b1</span><span class="w"> </span><span class="no">b2</span><span class="w"> </span><span class="no">b3</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">bit</span><span class="p">)</span><span class="pi">.</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Inductive</span><span class="w"> </span><span class="no">nybble</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kr">Type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">bits</span><span class="w"> </span><span class="o">(</span><span class="no">b0</span><span class="w"> </span><span class="no">b1</span><span class="w"> </span><span class="no">b2</span><span class="w"> </span><span class="no">b3</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">bit</span><span class="o">).</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <div class="language-coq highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-</pre></td><td class="rouge-code"><pre><span class="k">Fixpoint</span><span class="w"> </span><span class="no">mult</span><span class="w"> </span><span class="p">(</span><span class="no">n</span><span class="w"> </span><span class="no">m</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="p">)</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="w"> </span><span class="p">:=</span><span class="w"> 
-</span><span class="k">Fixpoint</span><span class="w"> </span><span class="no">plus</span><span class="w"> </span><span class="p">(</span><span class="no">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="no">m</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="w"> </span><span class="p">:=</span><span class="w"> 
+</pre></td><td class="rouge-code"><pre><span class="k">Fixpoint</span><span class="w"> </span><span class="no">mult</span><span class="w"> </span><span class="o">(</span><span class="no">n</span><span class="w"> </span><span class="no">m</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="o">)</span><span class="w">         </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> 
+</span><span class="k">Fixpoint</span><span class="w"> </span><span class="no">plus</span><span class="w"> </span><span class="o">(</span><span class="no">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="no">m</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="o">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> 
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="fixpoint-and-structrual-recursion"><code class="language-plaintext highlighter-rouge">Fixpoint</code> and Structrual Recursion</h2>
@@ -400,11 +402,11 @@ I posted it on blog mainly for my own references purpose.</p>
 4
 5
 6
-</pre></td><td class="rouge-code"><pre><span class="k">Fixpoint</span><span class="w"> </span><span class="no">evenb</span><span class="w"> </span><span class="p">(</span><span class="no">n</span><span class="p">:</span><span class="no">nat</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">bool</span><span class="w"> </span><span class="p">:=</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Fixpoint</span><span class="w"> </span><span class="no">evenb</span><span class="w"> </span><span class="o">(</span><span class="no">n</span><span class="p">:</span><span class="no">nat</span><span class="o">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">bool</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w">
   </span><span class="kr">match</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="kp">with</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">O</span><span class="w">        </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">true</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="no">O</span><span class="w">      </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">false</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">n</span><span class="w">        </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">evenb</span><span class="w"> </span><span class="p">(</span><span class="no">pred</span><span class="w"> </span><span class="p">(</span><span class="no">pred</span><span class="w"> </span><span class="no">n</span><span class="p">))</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">O</span><span class="w">        </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">true</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="no">O</span><span class="w">      </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">false</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">n</span><span class="w">        </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">evenb</span><span class="w"> </span><span class="o">(</span><span class="no">pred</span><span class="w"> </span><span class="o">(</span><span class="no">pred</span><span class="w"> </span><span class="no">n</span><span class="o">))</span><span class="w">
   </span><span class="kr">end</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
@@ -458,11 +460,11 @@ Recursive definition is:
 4
 5
 6
-</pre></td><td class="rouge-code"><pre><span class="k">Fixpoint</span><span class="w"> </span><span class="no">evenb</span><span class="w"> </span><span class="p">(</span><span class="no">n</span><span class="p">:</span><span class="no">nat</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">bool</span><span class="w"> </span><span class="p">:=</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Fixpoint</span><span class="w"> </span><span class="no">evenb</span><span class="w"> </span><span class="o">(</span><span class="no">n</span><span class="p">:</span><span class="no">nat</span><span class="o">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">bool</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w">
   </span><span class="kr">match</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="kp">with</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">O</span><span class="w">        </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">true</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="no">O</span><span class="w">      </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">false</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="p">(</span><span class="no">S</span><span class="w"> </span><span class="no">n'</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">evenb</span><span class="w"> </span><span class="no">n'</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">O</span><span class="w">        </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">true</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="no">O</span><span class="w">      </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">false</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="o">(</span><span class="no">S</span><span class="w"> </span><span class="no">n'</span><span class="o">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">evenb</span><span class="w"> </span><span class="no">n'</span><span class="w">
   </span><span class="kr">end</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
@@ -482,8 +484,8 @@ evenb is recursively defined (decreasing on 1st argument)
 4
 5
 6
-</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">plus_1_neq_0_firsttry</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="o">∀</span><span class="no">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="p">,</span><span class="w">
-  </span><span class="p">(</span><span class="no">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="p">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span><span class="pi">.</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">plus_1_neq_0_firsttry</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">∀</span><span class="no">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="o">,</span><span class="w">
+  </span><span class="o">(</span><span class="no">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">)</span><span class="w"> </span><span class="o">=?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span><span class="pi">.</span><span class="w">
 </span><span class="k">Proof</span><span class="pi">.</span><span class="w">
   </span><span class="kp">intros</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w">
   </span><span class="kp">simpl</span><span class="pi">.</span><span class="w"> </span><span class="c">(* does nothing! *)</span><span class="w">
@@ -495,7 +497,7 @@ evenb is recursively defined (decreasing on 1st argument)
 <p>so we have to <code class="language-plaintext highlighter-rouge">destruct</code> <code class="language-plaintext highlighter-rouge">n</code> as 2 cases: nullary <code class="language-plaintext highlighter-rouge">O</code> and unary <code class="language-plaintext highlighter-rouge">S n'</code>.</p>
 
 <div class="language-coq highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="kp">intros</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w"> </span><span class="kp">destruct</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="c">(* O *)</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="c">(* S *)</span><span class="w"> </span><span class="no">n'</span><span class="p">]</span><span class="w"> </span><span class="no">eqn</span><span class="p">:</span><span class="no">E</span><span class="pi">.</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="kp">intros</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w"> </span><span class="kp">destruct</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="c">(* O *)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="c">(* S *)</span><span class="w"> </span><span class="no">n'</span><span class="o">]</span><span class="w"> </span><span class="no">eqn</span><span class="p">:</span><span class="no">E</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <ul>
@@ -522,15 +524,15 @@ evenb is recursively defined (decreasing on 1st argument)
   </span><span class="no">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="w">
   </span><span class="no">E</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w">                          </span><span class="c">(* case 1, n is [O] a.k.a. [0] *)</span><span class="w">
   </span><span class="o">============================</span><span class="w">
-  </span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="p">?</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span><span class="w">
+  </span><span class="o">(</span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=?</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span><span class="w">
 
 
 </span><span class="no">subgoal</span><span class="w"> </span><span class="mi">2</span><span class="w">
 
-  </span><span class="no">n</span><span class="p">,</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="w">
+  </span><span class="no">n</span><span class="o">,</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="w">
   </span><span class="no">E</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="no">n'</span><span class="w">                       </span><span class="c">(* case 2, n is [S n'] *)</span><span class="w">
   </span><span class="o">============================</span><span class="w">
-  </span><span class="p">(</span><span class="no">S</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=</span><span class="p">?</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span><span class="w">
+  </span><span class="o">(</span><span class="no">S</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">=?</span><span class="w"> </span><span class="mi">0</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>If there is no need to specify any names, we could omit <code class="language-plaintext highlighter-rouge">as</code> clause or simply write <code class="language-plaintext highlighter-rouge">as [|]</code> or <code class="language-plaintext highlighter-rouge">as []</code>.
@@ -539,7 +541,7 @@ In fact. Any <code class="language-plaintext highlighter-rouge">as</code> clause
 <h3 id="a-small-caveat-on-intro">A small caveat on <code class="language-plaintext highlighter-rouge">intro</code></h3>
 
 <div class="language-coq highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="kp">intros</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="pi">.</span><span class="w"> </span><span class="kp">destruct</span><span class="w"> </span><span class="no">y</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="no">y</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="no">eqn</span><span class="p">:</span><span class="no">E</span><span class="pi">.</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="kp">intros</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="no">y</span><span class="pi">.</span><span class="w"> </span><span class="kp">destruct</span><span class="w"> </span><span class="no">y</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="no">y</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="no">eqn</span><span class="p">:</span><span class="no">E</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>By doing this, name <code class="language-plaintext highlighter-rouge">y</code> is shadowed. It’d usually better to use, say <code class="language-plaintext highlighter-rouge">y'</code> for this purpose.</p>

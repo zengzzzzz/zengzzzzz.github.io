@@ -129,6 +129,8 @@
                         
                         
                         
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -457,8 +459,8 @@
 3
 4
 </pre></td><td class="rouge-code"><pre><span class="c1">// Somewhere in your javascript</span>
-<span class="kd">var</span> <span class="nx">localServer</span> <span class="o">=</span> <span class="nx">google</span><span class="p">.</span><span class="nx">gears</span><span class="p">.</span><span class="nx">factory</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="dl">"</span><span class="s2">bata.localserver</span><span class="dl">"</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">localServer</span><span class="p">.</span><span class="nf">createManagedStore</span><span class="p">(</span><span class="nx">STORE_NAME</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">localServer</span> <span class="o">=</span> <span class="nx">google</span><span class="p">.</span><span class="nx">gears</span><span class="p">.</span><span class="nx">factory</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="dl">"</span><span class="s2">bata.localserver</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="nx">localServer</span><span class="p">.</span><span class="nx">createManagedStore</span><span class="p">(</span><span class="nx">STORE_NAME</span><span class="p">);</span>
 <span class="nx">store</span><span class="p">.</span><span class="nx">manifestUrl</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">manifest.json</span><span class="dl">"</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -517,7 +519,7 @@ main.js
 4
 </pre></td><td class="rouge-code"><pre><span class="c1">// sw.js</span>
 <span class="nb">self</span><span class="p">.</span><span class="nx">onfetch</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">e</span><span class="p">.</span><span class="nf">respondWith</span><span class="p">(</span><span class="k">new</span> <span class="nc">Response</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello World!</span><span class="dl">'</span><span class="p">))</span>
+  <span class="nx">e</span><span class="p">.</span><span class="nx">respondWith</span><span class="p">(</span><span class="k">new</span> <span class="nx">Response</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello World!</span><span class="dl">'</span><span class="p">))</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
@@ -541,9 +543,9 @@ main.js
 11
 </pre></td><td class="rouge-code"><pre><span class="c1">// sw.js</span>
 <span class="nb">self</span><span class="p">.</span><span class="nx">oninstall</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">e</span><span class="p">.</span><span class="nf">waitUntil</span><span class="p">(</span>
-    <span class="nx">caches</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="dl">'</span><span class="s1">installation</span><span class="dl">'</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">then</span><span class="p">(</span><span class="nx">cache</span> <span class="o">=&gt;</span>  <span class="nx">cache</span><span class="p">.</span><span class="nf">addAll</span><span class="p">([</span>
+  <span class="nx">e</span><span class="p">.</span><span class="nx">waitUntil</span><span class="p">(</span>
+    <span class="nx">caches</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">'</span><span class="s1">installation</span><span class="dl">'</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">cache</span> <span class="o">=&gt;</span>  <span class="nx">cache</span><span class="p">.</span><span class="nx">addAll</span><span class="p">([</span>
         <span class="dl">'</span><span class="s1">./</span><span class="dl">'</span><span class="p">,</span>
         <span class="dl">'</span><span class="s1">./styles.css</span><span class="dl">'</span><span class="p">,</span>
         <span class="dl">'</span><span class="s1">./script.js</span><span class="dl">'</span>
@@ -565,11 +567,11 @@ main.js
 9
 </pre></td><td class="rouge-code"><pre><span class="c1">//sw.js</span>
 <span class="nb">self</span><span class="p">.</span><span class="nx">onfetch</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">fetched</span> <span class="o">=</span> <span class="nf">fetch</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">request</span><span class="p">)</span>
-  <span class="kd">const</span> <span class="nx">cached</span> <span class="o">=</span> <span class="nx">caches</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">request</span><span class="p">)</span>
+  <span class="kd">const</span> <span class="nx">fetched</span> <span class="o">=</span> <span class="nx">fetch</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">request</span><span class="p">)</span>
+  <span class="kd">const</span> <span class="nx">cached</span> <span class="o">=</span> <span class="nx">caches</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">request</span><span class="p">)</span>
 
-  <span class="nx">e</span><span class="p">.</span><span class="nf">respondWith</span><span class="p">(</span>
-    <span class="nx">fetched</span><span class="p">.</span><span class="nf">catch</span><span class="p">(</span><span class="nx">_</span> <span class="o">=&gt;</span> <span class="nx">cached</span><span class="p">)</span>
+  <span class="nx">e</span><span class="p">.</span><span class="nx">respondWith</span><span class="p">(</span>
+    <span class="nx">fetched</span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">_</span> <span class="o">=&gt;</span> <span class="nx">cached</span><span class="p">)</span>
   <span class="p">)</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
@@ -610,19 +612,19 @@ main.js
 15
 16
 </pre></td><td class="rouge-code"><pre><span class="c1">// sw.js</span>
-<span class="nb">self</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">push</span><span class="dl">'</span><span class="p">,</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="nx">event</span><span class="p">.</span><span class="nf">waitUntil</span><span class="p">(</span>
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">push</span><span class="dl">'</span><span class="p">,</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">event</span><span class="p">.</span><span class="nx">waitUntil</span><span class="p">(</span>
     <span class="c1">// Process the event and display a notification.</span>
-    <span class="nb">self</span><span class="p">.</span><span class="nx">registration</span><span class="p">.</span><span class="nf">showNotification</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hey!</span><span class="dl">"</span><span class="p">)</span>
+    <span class="nb">self</span><span class="p">.</span><span class="nx">registration</span><span class="p">.</span><span class="nx">showNotification</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hey!</span><span class="dl">"</span><span class="p">)</span>
   <span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nb">self</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">notificationclick</span><span class="dl">'</span><span class="p">,</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>  
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">notificationclick</span><span class="dl">'</span><span class="p">,</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>  
   <span class="c1">// Do something with the event  </span>
-  <span class="nx">event</span><span class="p">.</span><span class="nx">notification</span><span class="p">.</span><span class="nf">close</span><span class="p">();</span>  
+  <span class="nx">event</span><span class="p">.</span><span class="nx">notification</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>  
 <span class="p">});</span>
 
-<span class="nb">self</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">notificationclose</span><span class="dl">'</span><span class="p">,</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>  
+<span class="nb">self</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">notificationclose</span><span class="dl">'</span><span class="p">,</span> <span class="nx">event</span> <span class="o">=&gt;</span> <span class="p">{</span>  
   <span class="c1">// Do something with the event  </span>
 <span class="p">});</span>
 </pre></td></tr></tbody></table></code></pre></div></div>

@@ -24,6 +24,7 @@ Inductive ty : Type :=
   | RNil : ty
   | RCons : string → ty → ty → ty.
 
+
 ">
     
     <meta property="article:published_time" content=" 2019-03-14T00:00:00Z">
@@ -124,6 +125,8 @@ Inductive ty : Type :=
                         <li>
                             <a href="/archive/">Archive</a>
                         </li>
+                        
+                        
                         
                         
                         
@@ -298,10 +301,10 @@ Inductive ty : Type :=
 2
 3
 4
-</pre></td><td class="rouge-code"><pre><span class="k">Inductive</span><span class="w"> </span><span class="no">ty</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kr">Type</span><span class="w"> </span><span class="p">:=</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Inductive</span><span class="w"> </span><span class="no">ty</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kr">Type</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w">
   </span><span class="c">(* record types *)</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">RNil</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">ty</span><span class="w">
-  </span><span class="p">|</span><span class="w"> </span><span class="no">RCons</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">string</span><span class="w"> </span><span class="o">→</span><span class="w"> </span><span class="no">ty</span><span class="w"> </span><span class="o">→</span><span class="w"> </span><span class="no">ty</span><span class="w"> </span><span class="o">→</span><span class="w"> </span><span class="no">ty</span><span class="pi">.</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">RNil</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">ty</span><span class="w">
+  </span><span class="o">|</span><span class="w"> </span><span class="no">RCons</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">string</span><span class="w"> </span><span class="p">→</span><span class="w"> </span><span class="no">ty</span><span class="w"> </span><span class="p">→</span><span class="w"> </span><span class="no">ty</span><span class="w"> </span><span class="p">→</span><span class="w"> </span><span class="no">ty</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>we need typecon to identify record…</p>

@@ -133,6 +133,8 @@ fixed-point numbers, contrast to floating-point numbers ...">
                         
                         
                         
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -419,8 +421,8 @@ Here, we can represent 8 bits (i.e. a <em>byte</em>) as a <em>hex pair</em>, e.g
 4
 5
 6
-</pre></td><td class="rouge-code"><pre><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="c1">    // uintN_t</span><span class="cp">
-#include</span> <span class="cpf">&lt;inttypes.h&gt;</span><span class="c1">  // PRI macros</span><span class="cp">
+</pre></td><td class="rouge-code"><pre><span class="cp">#include &lt;stdint.h&gt;    // uintN_t
+#include &lt;inttypes.h&gt;  // PRI macros
 </span>
 <span class="kt">uint8_t</span> <span class="n">u8</span> <span class="o">=</span> <span class="mi">255</span><span class="p">;</span>
 <span class="n">printf</span><span class="p">(</span><span class="s">"0x%02"</span> <span class="n">PRIx8</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">u8</span><span class="p">);</span> <span class="c1">// 0xff</span>

@@ -16,6 +16,7 @@
     
     <meta property="og:type" content="article">
     <meta property="og:description" content="Review (only in slide)
+
 ">
     
     <meta property="article:published_time" content=" 2019-01-02T00:00:00Z">
@@ -116,6 +117,8 @@
                         <li>
                             <a href="/archive/">Archive</a>
                         </li>
+                        
+                        
                         
                         
                         
@@ -290,8 +293,8 @@
 
 <div class="language-coq highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">review2</span><span class="p">:</span><span class="w"> </span><span class="o">∀</span><span class="no">b</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="no">orb</span><span class="w"> </span><span class="no">true</span><span class="w"> </span><span class="no">b</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span><span class="pi">.</span><span class="w">
-</span><span class="k">Theorem</span><span class="w"> </span><span class="no">review3</span><span class="p">:</span><span class="w"> </span><span class="o">∀</span><span class="no">b</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="no">orb</span><span class="w"> </span><span class="no">b</span><span class="w"> </span><span class="no">true</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span><span class="pi">.</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">review2</span><span class="p">:</span><span class="w"> </span><span class="p">∀</span><span class="no">b</span><span class="o">,</span><span class="w"> </span><span class="o">(</span><span class="no">orb</span><span class="w"> </span><span class="no">true</span><span class="w"> </span><span class="no">b</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span><span class="pi">.</span><span class="w">
+</span><span class="k">Theorem</span><span class="w"> </span><span class="no">review3</span><span class="p">:</span><span class="w"> </span><span class="p">∀</span><span class="no">b</span><span class="o">,</span><span class="w"> </span><span class="o">(</span><span class="no">orb</span><span class="w"> </span><span class="no">b</span><span class="w"> </span><span class="no">true</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Whether or not it can be just <code class="language-plaintext highlighter-rouge">simpl.</code> depending on the definition of <code class="language-plaintext highlighter-rouge">orb</code>.</p>
@@ -309,7 +312,7 @@
 <div class="language-coq highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">plus_O_n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kr">forall</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">plus_O_n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kr">forall</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w">
 </span><span class="k">Proof</span><span class="pi">.</span><span class="w">
   </span><span class="kp">intros</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w"> </span><span class="kp">simpl</span><span class="pi">.</span><span class="w"> </span><span class="ne">reflexivity</span><span class="pi">.</span><span class="w"> </span><span class="k">Qed</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
@@ -321,10 +324,10 @@
 3
 4
 5
-</pre></td><td class="rouge-code"><pre><span class="k">Fixpoint</span><span class="w"> </span><span class="no">plus</span><span class="w"> </span><span class="p">(</span><span class="no">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="no">m</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="w"> </span><span class="p">:=</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Fixpoint</span><span class="w"> </span><span class="no">plus</span><span class="w"> </span><span class="o">(</span><span class="no">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="no">m</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="o">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w">
   </span><span class="kr">match</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="kp">with</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="no">O</span><span class="w"> </span><span class="o">⇒</span><span class="w"> </span><span class="no">m</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="o">⇒</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="p">(</span><span class="no">plus</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="no">m</span><span class="p">)</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">O</span><span class="w"> </span><span class="p">⇒</span><span class="w"> </span><span class="no">m</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="p">⇒</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="o">(</span><span class="no">plus</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="no">m</span><span class="o">)</span><span class="w">
   </span><span class="kr">end</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
@@ -339,7 +342,7 @@
 3
 4
 5
-</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">plus_O_n_1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kr">forall</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="p">,</span><span class="w">  </span><span class="no">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">plus_O_n_1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kr">forall</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="o">,</span><span class="w">  </span><span class="no">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w">
 </span><span class="k">Proof</span><span class="pi">.</span><span class="w">
   </span><span class="kp">intros</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w">
   </span><span class="kp">simpl</span><span class="pi">.</span><span class="w"> </span><span class="c">(* Does nothing! *)</span><span class="w">
@@ -359,13 +362,13 @@
 7
 8
 9
-</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">plus_n_O_2</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="o">∀</span><span class="no">n</span><span class="p">:</span><span class="no">nat</span><span class="p">,</span><span class="w">
-  </span><span class="no">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="pi">.</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">plus_n_O_2</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">∀</span><span class="no">n</span><span class="p">:</span><span class="no">nat</span><span class="o">,</span><span class="w">
+  </span><span class="no">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="w">
 </span><span class="k">Proof</span><span class="pi">.</span><span class="w">
-  </span><span class="kp">intros</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w"> </span><span class="kp">destruct</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="p">[|</span><span class="w"> </span><span class="no">n'</span><span class="p">]</span><span class="w"> </span><span class="no">eqn</span><span class="p">:</span><span class="no">E</span><span class="pi">.</span><span class="w">
-  </span><span class="p">-</span><span class="w"> </span><span class="c">(* n = 0 *)</span><span class="w">
+  </span><span class="kp">intros</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w"> </span><span class="kp">destruct</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="o">[|</span><span class="w"> </span><span class="no">n'</span><span class="o">]</span><span class="w"> </span><span class="no">eqn</span><span class="p">:</span><span class="no">E</span><span class="pi">.</span><span class="w">
+  </span><span class="o">-</span><span class="w"> </span><span class="c">(* n = 0 *)</span><span class="w">
     </span><span class="ne">reflexivity</span><span class="pi">.</span><span class="w"> </span><span class="c">(* so far so good... *)</span><span class="w">
-  </span><span class="p">-</span><span class="w"> </span><span class="c">(* n = S n' *)</span><span class="w">
+  </span><span class="o">-</span><span class="w"> </span><span class="c">(* n = S n' *)</span><span class="w">
     </span><span class="kp">simpl</span><span class="pi">.</span><span class="w"> </span><span class="c">(* ...but here we are stuck again *)</span><span class="w">
 </span><span class="no">Abort</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
@@ -381,7 +384,7 @@
 <p>Princeple of induction over natural numbers (i.e. <em>mathematical induction</em>)</p>
 
 <div class="language-coq highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">P</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="o">∀</span><span class="no">n'</span><span class="w"> </span><span class="no">P</span><span class="p">(</span><span class="no">n'</span><span class="p">)</span><span class="w"> </span><span class="o">→</span><span class="w"> </span><span class="no">P</span><span class="p">(</span><span class="no">S</span><span class="w"> </span><span class="no">n'</span><span class="p">)</span><span class="w">  </span><span class="o">====&gt;</span><span class="w">  </span><span class="no">P</span><span class="p">(</span><span class="no">n</span><span class="p">)</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="no">P</span><span class="o">(</span><span class="mi">0</span><span class="o">)</span><span class="p">;</span><span class="w"> </span><span class="p">∀</span><span class="no">n'</span><span class="w"> </span><span class="no">P</span><span class="o">(</span><span class="no">n'</span><span class="o">)</span><span class="w"> </span><span class="p">→</span><span class="w"> </span><span class="no">P</span><span class="o">(</span><span class="no">S</span><span class="w"> </span><span class="no">n'</span><span class="o">)</span><span class="w">  </span><span class="o">====&gt;</span><span class="w">  </span><span class="no">P</span><span class="o">(</span><span class="no">n</span><span class="o">)</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>In Coq, like <code class="language-plaintext highlighter-rouge">destruct</code>, <code class="language-plaintext highlighter-rouge">induction</code> break <code class="language-plaintext highlighter-rouge">P(n)</code> into 2 subgoals:</p>
@@ -391,11 +394,11 @@
 3
 4
 5
-</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">plus_n_O</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="o">∀</span><span class="no">n</span><span class="p">:</span><span class="no">nat</span><span class="p">,</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="pi">.</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">plus_n_O</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">∀</span><span class="no">n</span><span class="p">:</span><span class="no">nat</span><span class="o">,</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="w">
 </span><span class="k">Proof</span><span class="pi">.</span><span class="w">
-  </span><span class="kp">intros</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w"> </span><span class="kp">induction</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="p">[|</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="no">IHn'</span><span class="p">]</span><span class="pi">.</span><span class="w">
-  </span><span class="p">-</span><span class="w"> </span><span class="c">(* n = 0 *)</span><span class="w"> </span><span class="ne">reflexivity</span><span class="pi">.</span><span class="w">
-  </span><span class="p">-</span><span class="w"> </span><span class="c">(* n = S n' *)</span><span class="w"> </span><span class="kp">simpl</span><span class="pi">.</span><span class="w"> </span><span class="kp">rewrite</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="no">IHn'</span><span class="pi">.</span><span class="w"> </span><span class="ne">reflexivity</span><span class="pi">.</span><span class="w"> </span><span class="k">Qed</span><span class="pi">.</span><span class="w">
+  </span><span class="kp">intros</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w"> </span><span class="kp">induction</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="o">[|</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="no">IHn'</span><span class="o">].</span><span class="w">
+  </span><span class="o">-</span><span class="w"> </span><span class="c">(* n = 0 *)</span><span class="w"> </span><span class="ne">reflexivity</span><span class="pi">.</span><span class="w">
+  </span><span class="o">-</span><span class="w"> </span><span class="c">(* n = S n' *)</span><span class="w"> </span><span class="kp">simpl</span><span class="pi">.</span><span class="w"> </span><span class="kp">rewrite</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="no">IHn'</span><span class="pi">.</span><span class="w"> </span><span class="ne">reflexivity</span><span class="pi">.</span><span class="w"> </span><span class="k">Qed</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="proving-n---n--0">Proving <code class="language-plaintext highlighter-rouge">n - n = 0</code></h2>
@@ -409,15 +412,15 @@
 7
 8
 9
-</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">minus_diag</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="o">∀</span><span class="no">n</span><span class="p">,</span><span class="w">
-  </span><span class="no">minus</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="pi">.</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">minus_diag</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">∀</span><span class="no">n</span><span class="o">,</span><span class="w">
+  </span><span class="no">minus</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="w">
 </span><span class="k">Proof</span><span class="pi">.</span><span class="w">
   </span><span class="c">(* WORKED IN CLASS *)</span><span class="w">
-  </span><span class="kp">intros</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w"> </span><span class="kp">induction</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="p">[|</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="no">IHn'</span><span class="p">]</span><span class="pi">.</span><span class="w">
-  </span><span class="p">-</span><span class="w"> </span><span class="c">(* n = 0 *)</span><span class="w">
+  </span><span class="kp">intros</span><span class="w"> </span><span class="no">n</span><span class="pi">.</span><span class="w"> </span><span class="kp">induction</span><span class="w"> </span><span class="no">n</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="o">[|</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="no">IHn'</span><span class="o">].</span><span class="w">
+  </span><span class="o">-</span><span class="w"> </span><span class="c">(* n = 0 *)</span><span class="w">
     </span><span class="kp">simpl</span><span class="pi">.</span><span class="w"> </span><span class="ne">reflexivity</span><span class="pi">.</span><span class="w">
-  </span><span class="p">-</span><span class="w"> </span><span class="c">(* n = S n' *)</span><span class="w">
-    </span><span class="kp">simpl</span><span class="pi">.</span><span class="w"> </span><span class="kp">rewrite</span><span class="w"> </span><span class="o">→</span><span class="w"> </span><span class="no">IHn'</span><span class="pi">.</span><span class="w"> </span><span class="ne">reflexivity</span><span class="pi">.</span><span class="w"> </span><span class="k">Qed</span><span class="w">
+  </span><span class="o">-</span><span class="w"> </span><span class="c">(* n = S n' *)</span><span class="w">
+    </span><span class="kp">simpl</span><span class="pi">.</span><span class="w"> </span><span class="kp">rewrite</span><span class="w"> </span><span class="p">→</span><span class="w"> </span><span class="no">IHn'</span><span class="pi">.</span><span class="w"> </span><span class="ne">reflexivity</span><span class="pi">.</span><span class="w"> </span><span class="k">Qed</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Noticed that the definition of <code class="language-plaintext highlighter-rouge">minus</code>:</p>
@@ -428,11 +431,11 @@
 4
 5
 6
-</pre></td><td class="rouge-code"><pre><span class="w">    </span><span class="k">Fixpoint</span><span class="w"> </span><span class="no">minus</span><span class="w"> </span><span class="p">(</span><span class="no">n</span><span class="w"> </span><span class="no">m</span><span class="p">:</span><span class="no">nat</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="w"> </span><span class="p">:=</span><span class="w">
-      </span><span class="kr">match</span><span class="w"> </span><span class="no">n</span><span class="p">,</span><span class="w"> </span><span class="no">m</span><span class="w"> </span><span class="kp">with</span><span class="w">
-      </span><span class="p">|</span><span class="w"> </span><span class="no">O</span><span class="w">   </span><span class="p">,</span><span class="w"> </span><span class="p">_</span><span class="w">    </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">O</span><span class="w">
-      </span><span class="p">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="no">O</span><span class="w">    </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">n</span><span class="w">
-      </span><span class="p">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="no">n'</span><span class="p">,</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="no">m'</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">minus</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="no">m'</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="w">    </span><span class="k">Fixpoint</span><span class="w"> </span><span class="no">minus</span><span class="w"> </span><span class="o">(</span><span class="no">n</span><span class="w"> </span><span class="no">m</span><span class="p">:</span><span class="no">nat</span><span class="o">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="no">nat</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w">
+      </span><span class="kr">match</span><span class="w"> </span><span class="no">n</span><span class="o">,</span><span class="w"> </span><span class="no">m</span><span class="w"> </span><span class="kp">with</span><span class="w">
+      </span><span class="o">|</span><span class="w"> </span><span class="no">O</span><span class="w">   </span><span class="o">,</span><span class="w"> </span><span class="p">_</span><span class="w">    </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">O</span><span class="w">
+      </span><span class="o">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="no">O</span><span class="w">    </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">n</span><span class="w">
+      </span><span class="o">|</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="no">n'</span><span class="o">,</span><span class="w"> </span><span class="no">S</span><span class="w"> </span><span class="no">m'</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">minus</span><span class="w"> </span><span class="no">n'</span><span class="w"> </span><span class="no">m'</span><span class="w">
       </span><span class="kr">end</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 

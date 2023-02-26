@@ -17,6 +17,7 @@
     <meta property="og:type" content="article">
     <meta property="og:description" content="In the last episode we talked about the data representation of integer, a kind
 of fixed-point numbers. Today we’re going to learn about floating-point numbers.
+
 ">
     
     <meta property="article:published_time" content=" 2020-06-21T00:00:00Z">
@@ -117,6 +118,8 @@ of fixed-point numbers. Today we’re going to learn about floating-point number
                         <li>
                             <a href="/archive/">Archive</a>
                         </li>
+                        
+                        
                         
                         
                         
@@ -431,9 +434,9 @@ but in a more structural and technically fancier way.</p>
 11
 12
 13
-</pre></td><td class="rouge-code"><pre><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;inttypes.h&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</pre></td><td class="rouge-code"><pre><span class="cp">#include &lt;stdint.h&gt;
+#include &lt;inttypes.h&gt;
+#include &lt;math.h&gt;
 </span>
 <span class="kt">float</span> <span class="n">pi</span> <span class="o">=</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">M_PI</span><span class="p">;</span>
 <span class="k">union</span> <span class="p">{</span>
@@ -487,9 +490,9 @@ works in a different way, using an explicit radix point in the hex:</p>
 7
 8
 9
-</pre></td><td class="rouge-code"><pre><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;inttypes.h&gt;</span><span class="cp">
+</pre></td><td class="rouge-code"><pre><span class="cp">#include &lt;iostream&gt;
+#include &lt;stdint.h&gt;
+#include &lt;inttypes.h&gt;
 </span>
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
   <span class="kt">double</span> <span class="n">qNan</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">numeric_limits</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;::</span><span class="n">quiet_NaN</span><span class="p">();</span>
@@ -611,7 +614,7 @@ in JavaScript:</p>
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 </pre></td><td class="rouge-code"><pre><span class="o">+</span><span class="mi">0</span> <span class="o">===</span> <span class="o">-</span><span class="mi">0</span>  <span class="c1">// true, using the traditional JS equality</span>
-<span class="nb">Object</span><span class="p">.</span><span class="nf">is</span><span class="p">(</span><span class="o">+</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">0</span><span class="p">)</span>  <span class="c1">// false, using the "SameValue" equality</span>
+<span class="nb">Object</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="o">+</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">0</span><span class="p">)</span>  <span class="c1">// false, using the "SameValue" equality</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>In Cpp, we can tell them apart by looking at its sign bit:</p>
@@ -621,7 +624,7 @@ in JavaScript:</p>
 3
 4
 5
-</pre></td><td class="rouge-code"><pre><span class="cp">#include</span> <span class="cpf">&lt;cmath&gt;</span><span class="c1">   // signbit</span><span class="cp">
+</pre></td><td class="rouge-code"><pre><span class="cp">#include &lt;cmath&gt;   // signbit
 </span>
 <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="o">+</span><span class="mf">0.0</span><span class="n">f</span> <span class="o">==</span> <span class="o">-</span><span class="mf">0.0</span><span class="n">f</span><span class="p">);</span>     <span class="c1">// 1</span>
 <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">signbit</span><span class="p">(</span><span class="o">-</span><span class="mf">0.0</span><span class="n">f</span><span class="p">);</span>  <span class="c1">// 1</span>

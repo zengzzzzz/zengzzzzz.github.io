@@ -18,6 +18,7 @@
     <meta property="og:description" content="
   make the STLC into a PL!
 
+
 ">
     
     <meta property="article:published_time" content=" 2019-03-09T00:00:00Z">
@@ -118,6 +119,8 @@
                         <li>
                             <a href="/archive/">Archive</a>
                         </li>
+                        
+                        
                         
                         
                         
@@ -319,9 +322,9 @@
 <div class="language-coq highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="kr">let</span><span class="w"> </span><span class="no">x</span><span class="o">=</span><span class="no">t</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="no">t</span><span class="w">      </span><span class="kr">let</span><span class="o">-</span><span class="no">binding</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="kr">let</span><span class="w"> </span><span class="no">x</span><span class="o">=</span><span class="no">t</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="no">t</span><span class="w">      </span><span class="kr">let</span><span class="o">-</span><span class="no">binding</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -369,19 +372,19 @@ Typing:
 11
 12
 13
-</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="err">(</span><span class="no">t</span><span class="p">,</span><span class="no">t</span><span class="p">)</span><span class="w">             </span><span class="no">pair</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="nn">t</span><span class="p">.</span><span class="no">fst</span><span class="w">             </span><span class="kp">first</span><span class="w"> </span><span class="no">projection</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="nn">t</span><span class="p">.</span><span class="no">snd</span><span class="w">             </span><span class="no">second</span><span class="w"> </span><span class="no">projection</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">(</span><span class="no">t</span><span class="o">,</span><span class="no">t</span><span class="o">)</span><span class="w">             </span><span class="no">pair</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="nn">t</span><span class="p">.</span><span class="no">fst</span><span class="w">             </span><span class="kp">first</span><span class="w"> </span><span class="no">projection</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="nn">t</span><span class="p">.</span><span class="no">snd</span><span class="w">             </span><span class="no">second</span><span class="w"> </span><span class="no">projection</span><span class="w">
 
-</span><span class="no">v</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Values</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="err">(</span><span class="no">v</span><span class="p">,</span><span class="no">v</span><span class="p">)</span><span class="w">             </span><span class="no">pair</span><span class="w"> </span><span class="no">value</span><span class="w">
+</span><span class="no">v</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Values</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">(</span><span class="no">v</span><span class="o">,</span><span class="no">v</span><span class="o">)</span><span class="w">             </span><span class="no">pair</span><span class="w"> </span><span class="no">value</span><span class="w">
 
-</span><span class="no">T</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Types</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="no">T</span><span class="w">             </span><span class="no">product</span><span class="w"> </span><span class="no">type</span><span class="w">
+</span><span class="no">T</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Types</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="no">T</span><span class="w">             </span><span class="no">product</span><span class="w"> </span><span class="no">type</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -477,17 +480,17 @@ Typing:
 9
 10
 11
-</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="no">unit</span><span class="w">              </span><span class="no">unit</span><span class="w">              </span><span class="o">--</span><span class="w"> </span><span class="no">often</span><span class="w"> </span><span class="no">written</span><span class="w"> </span><span class="o">`</span><span class="p">()</span><span class="o">`</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="no">well</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">unit</span><span class="w">              </span><span class="no">unit</span><span class="w">              </span><span class="o">--</span><span class="w"> </span><span class="no">often</span><span class="w"> </span><span class="no">written</span><span class="w"> </span><span class="err">`</span><span class="o">()</span><span class="err">`</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="no">well</span><span class="w">
 
-</span><span class="no">v</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Values</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="no">unit</span><span class="w">              </span><span class="no">unit</span><span class="w"> </span><span class="no">value</span><span class="w">
+</span><span class="no">v</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Values</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">unit</span><span class="w">              </span><span class="no">unit</span><span class="w"> </span><span class="no">value</span><span class="w">
 
-</span><span class="no">T</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Types</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="no">Unit</span><span class="w">              </span><span class="no">unit</span><span class="w"> </span><span class="no">type</span><span class="w">         </span><span class="o">--</span><span class="w"> </span><span class="no">Haskell</span><span class="w"> </span><span class="no">even</span><span class="w"> </span><span class="no">write</span><span class="w"> </span><span class="no">this</span><span class="w"> </span><span class="o">`</span><span class="p">()</span><span class="o">`</span><span class="w">
+</span><span class="no">T</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Types</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">Unit</span><span class="w">              </span><span class="no">unit</span><span class="w"> </span><span class="no">type</span><span class="w">         </span><span class="o">--</span><span class="w"> </span><span class="no">Haskell</span><span class="w"> </span><span class="no">even</span><span class="w"> </span><span class="no">write</span><span class="w"> </span><span class="no">this</span><span class="w"> </span><span class="err">`</span><span class="o">()</span><span class="err">`</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -566,22 +569,22 @@ inr : Bool -&gt; Nat + Bool
 14
 15
 16
-</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="no">inl</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="no">t</span><span class="w">           </span><span class="no">tagging</span><span class="w"> </span><span class="p">(</span><span class="no">left</span><span class="p">)</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="no">inr</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="no">t</span><span class="w">           </span><span class="no">tagging</span><span class="w"> </span><span class="p">(</span><span class="no">right</span><span class="p">)</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="no">case</span><span class="w"> </span><span class="no">t</span><span class="w"> </span><span class="no">of</span><span class="w">         </span><span class="no">case</span><span class="w">
-        </span><span class="no">inl</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">t</span><span class="w">
-      </span><span class="p">|</span><span class="w"> </span><span class="no">inr</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">t</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">inl</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="no">t</span><span class="w">           </span><span class="no">tagging</span><span class="w"> </span><span class="o">(</span><span class="no">left</span><span class="o">)</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">inr</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="no">t</span><span class="w">           </span><span class="no">tagging</span><span class="w"> </span><span class="o">(</span><span class="no">right</span><span class="o">)</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">case</span><span class="w"> </span><span class="no">t</span><span class="w"> </span><span class="no">of</span><span class="w">         </span><span class="no">case</span><span class="w">
+        </span><span class="no">inl</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">t</span><span class="w">
+      </span><span class="o">|</span><span class="w"> </span><span class="no">inr</span><span class="w"> </span><span class="no">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">t</span><span class="w">
 
-</span><span class="no">v</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Values</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="no">inl</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="no">v</span><span class="w">           </span><span class="no">tagged</span><span class="w"> </span><span class="no">value</span><span class="w"> </span><span class="p">(</span><span class="no">left</span><span class="p">)</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="no">inr</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="no">v</span><span class="w">           </span><span class="no">tagged</span><span class="w"> </span><span class="no">value</span><span class="w"> </span><span class="p">(</span><span class="no">right</span><span class="p">)</span><span class="w">
+</span><span class="no">v</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Values</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">inl</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="no">v</span><span class="w">           </span><span class="no">tagged</span><span class="w"> </span><span class="no">value</span><span class="w"> </span><span class="o">(</span><span class="no">left</span><span class="o">)</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">inr</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="no">v</span><span class="w">           </span><span class="no">tagged</span><span class="w"> </span><span class="no">value</span><span class="w"> </span><span class="o">(</span><span class="no">right</span><span class="o">)</span><span class="w">
 
-</span><span class="no">T</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Types</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="no">T</span><span class="w">             </span><span class="no">sum</span><span class="w"> </span><span class="no">type</span><span class="w">
+</span><span class="no">T</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Types</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">T</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="no">T</span><span class="w">             </span><span class="no">sum</span><span class="w"> </span><span class="no">type</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -716,21 +719,21 @@ Typing:
 13
 14
 15
-</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">T</span><span class="w">                          </span><span class="o">--</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">need</span><span class="w"> </span><span class="no">explicit</span><span class="w"> </span><span class="no">type</span><span class="w"> </span><span class="no">annotation</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="no">cons</span><span class="w"> </span><span class="no">t</span><span class="w"> </span><span class="no">t</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="no">lcase</span><span class="w"> </span><span class="no">t</span><span class="w"> </span><span class="no">of</span><span class="w"> </span><span class="no">nil</span><span class="w">  </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">t</span><span class="w">           </span><span class="o">--</span><span class="w"> </span><span class="no">a</span><span class="w"> </span><span class="no">special</span><span class="w"> </span><span class="no">case</span><span class="w"> </span><span class="no">for</span><span class="w"> </span><span class="no">list</span><span class="w">
-               </span><span class="p">|</span><span class="w"> </span><span class="no">x</span><span class="p">::</span><span class="no">x</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="no">t</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">T</span><span class="w">                          </span><span class="o">--</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">need</span><span class="w"> </span><span class="no">explicit</span><span class="w"> </span><span class="no">type</span><span class="w"> </span><span class="no">annotation</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">cons</span><span class="w"> </span><span class="no">t</span><span class="w"> </span><span class="no">t</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">lcase</span><span class="w"> </span><span class="no">t</span><span class="w"> </span><span class="no">of</span><span class="w"> </span><span class="no">nil</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">t</span><span class="w">           </span><span class="o">--</span><span class="w"> </span><span class="no">a</span><span class="w"> </span><span class="no">special</span><span class="w"> </span><span class="no">case</span><span class="w"> </span><span class="no">for</span><span class="w"> </span><span class="no">list</span><span class="w">
+               </span><span class="o">|</span><span class="w"> </span><span class="no">x</span><span class="p">::</span><span class="no">x</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="no">t</span><span class="w">
 
-</span><span class="no">v</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Values</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">T</span><span class="w">             </span><span class="no">nil</span><span class="w"> </span><span class="no">value</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="no">cons</span><span class="w"> </span><span class="no">v</span><span class="w"> </span><span class="no">v</span><span class="w">          </span><span class="no">cons</span><span class="w"> </span><span class="no">value</span><span class="w">
+</span><span class="no">v</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Values</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">nil</span><span class="w"> </span><span class="no">T</span><span class="w">             </span><span class="no">nil</span><span class="w"> </span><span class="no">value</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">cons</span><span class="w"> </span><span class="no">v</span><span class="w"> </span><span class="no">v</span><span class="w">          </span><span class="no">cons</span><span class="w"> </span><span class="no">value</span><span class="w">
 
-</span><span class="no">T</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Types</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="no">List</span><span class="w"> </span><span class="no">T</span><span class="w">            </span><span class="no">list</span><span class="w"> </span><span class="no">of</span><span class="w"> </span><span class="no">Ts</span><span class="w">
+</span><span class="no">T</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Types</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">List</span><span class="w"> </span><span class="no">T</span><span class="w">            </span><span class="no">list</span><span class="w"> </span><span class="no">of</span><span class="w"> </span><span class="no">Ts</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -831,9 +834,9 @@ Typing:
 <div class="language-coq highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="no">fix</span><span class="w"> </span><span class="no">t</span><span class="w">             </span><span class="no">fixed</span><span class="o">-</span><span class="no">point</span><span class="w"> </span><span class="no">operator</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                </span><span class="no">Terms</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="no">fix</span><span class="w"> </span><span class="no">t</span><span class="w">             </span><span class="no">fixed</span><span class="o">-</span><span class="no">point</span><span class="w"> </span><span class="no">operator</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Reduction:</p>
@@ -878,18 +881,18 @@ Typing:
 10
 11
 12
-</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::=</span><span class="w">                          </span><span class="no">Terms</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="err">{</span><span class="no">i1</span><span class="o">=</span><span class="no">t1</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="kr">in</span><span class="o">=</span><span class="no">tn</span><span class="p">}</span><span class="w">         </span><span class="no">record</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="nn">t</span><span class="p">.</span><span class="no">i</span><span class="w">                         </span><span class="no">projection</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="no">t</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                          </span><span class="no">Terms</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">{</span><span class="no">i1</span><span class="o">=</span><span class="no">t1</span><span class="o">,</span><span class="w"> </span><span class="o">...,</span><span class="w"> </span><span class="kr">in</span><span class="o">=</span><span class="no">tn</span><span class="o">}</span><span class="w">         </span><span class="no">record</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="nn">t</span><span class="p">.</span><span class="no">i</span><span class="w">                         </span><span class="no">projection</span><span class="w">
 
-</span><span class="no">v</span><span class="w"> </span><span class="p">::=</span><span class="w">                          </span><span class="no">Values</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="err">{</span><span class="no">i1</span><span class="o">=</span><span class="no">v1</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="kr">in</span><span class="o">=</span><span class="no">vn</span><span class="p">}</span><span class="w">         </span><span class="no">record</span><span class="w"> </span><span class="no">value</span><span class="w">
+</span><span class="no">v</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                          </span><span class="no">Values</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">{</span><span class="no">i1</span><span class="o">=</span><span class="no">v1</span><span class="o">,</span><span class="w"> </span><span class="o">...,</span><span class="w"> </span><span class="kr">in</span><span class="o">=</span><span class="no">vn</span><span class="o">}</span><span class="w">         </span><span class="no">record</span><span class="w"> </span><span class="no">value</span><span class="w">
 
-</span><span class="no">T</span><span class="w"> </span><span class="p">::=</span><span class="w">                          </span><span class="no">Types</span><span class="w">
-    </span><span class="p">|</span><span class="w"> </span><span class="p">..</span><span class="pi">.</span><span class="w">
-    </span><span class="err">|</span><span class="w"> </span><span class="err">{</span><span class="no">i1</span><span class="p">:</span><span class="no">T1</span><span class="p">,</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="kr">in</span><span class="p">:</span><span class="no">Tn</span><span class="p">}</span><span class="w">         </span><span class="no">record</span><span class="w"> </span><span class="no">type</span><span class="w">
+</span><span class="no">T</span><span class="w"> </span><span class="p">::</span><span class="o">=</span><span class="w">                          </span><span class="no">Types</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">...</span><span class="w">
+    </span><span class="o">|</span><span class="w"> </span><span class="o">{</span><span class="no">i1</span><span class="p">:</span><span class="no">T1</span><span class="o">,</span><span class="w"> </span><span class="o">...,</span><span class="w"> </span><span class="kr">in</span><span class="p">:</span><span class="no">Tn</span><span class="o">}</span><span class="w">         </span><span class="no">record</span><span class="w"> </span><span class="no">type</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -981,13 +984,13 @@ Typing:
 5
 6
 7
-</pre></td><td class="rouge-code"><pre><span class="k">Hint</span><span class="w"> </span><span class="no">Extern</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">(</span><span class="no">has_type</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">(</span><span class="no">app</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">_)</span><span class="w"> </span><span class="p">_)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Hint</span><span class="w"> </span><span class="no">Extern</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">(</span><span class="no">has_type</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="o">(</span><span class="no">app</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">_</span><span class="o">)</span><span class="w"> </span><span class="p">_</span><span class="o">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w">
   </span><span class="kp">eapply</span><span class="w"> </span><span class="no">T_App</span><span class="p">;</span><span class="w"> </span><span class="kp">auto</span><span class="pi">.</span><span class="w">
 
-</span><span class="k">Hint</span><span class="w"> </span><span class="no">Extern</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">(</span><span class="no">has_type</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">(</span><span class="no">tlcase</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">_)</span><span class="w"> </span><span class="p">_)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w">
+</span><span class="k">Hint</span><span class="w"> </span><span class="no">Extern</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">(</span><span class="no">has_type</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="o">(</span><span class="no">tlcase</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">_</span><span class="w"> </span><span class="p">_</span><span class="o">)</span><span class="w"> </span><span class="p">_</span><span class="o">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w">
   </span><span class="kp">eapply</span><span class="w"> </span><span class="no">T_Lcase</span><span class="p">;</span><span class="w"> </span><span class="kp">auto</span><span class="pi">.</span><span class="w">
 
-</span><span class="k">Hint</span><span class="w"> </span><span class="no">Extern</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">(_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">_)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kp">compute</span><span class="p">;</span><span class="w"> </span><span class="ne">reflexivity</span><span class="pi">.</span><span class="w">
+</span><span class="k">Hint</span><span class="w"> </span><span class="no">Extern</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">(</span><span class="p">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">_</span><span class="o">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="kp">compute</span><span class="p">;</span><span class="w"> </span><span class="ne">reflexivity</span><span class="pi">.</span><span class="w">
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>效果非常酷：typecheck 只需要 <code class="language-plaintext highlighter-rouge">eauto</code>，reduction 只需要 <code class="language-plaintext highlighter-rouge">normalize</code>.</p>

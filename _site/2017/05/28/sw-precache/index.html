@@ -129,6 +129,8 @@
                         
                         
                         
+                        
+                        
                         <li class="search-icon">
                             <a href="javascript:void(0)">
                                 <i class="fa fa-search"></i>
@@ -337,7 +339,7 @@ lib/
 4
 5
 </pre></td><td class="rouge-code"><pre><span class="o">&gt;</span> <span class="nx">urlToCacheKeys</span>  
-<span class="o">&lt;</span> <span class="nc">Map</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
+<span class="o">&lt;</span> <span class="nb">Map</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
   <span class="dl">"</span><span class="s2">http.../js/a.js</span><span class="dl">"</span> <span class="o">=&gt;</span> <span class="dl">"</span><span class="s2">http.../js/a.js?_sw-precache=3cb4f0</span><span class="dl">"</span><span class="p">,</span>   
   <span class="dl">"</span><span class="s2">http.../css/b.js</span><span class="dl">"</span> <span class="o">=&gt;</span> <span class="dl">"</span><span class="s2">http.../css/b.css?_sw-precache=c5a951</span><span class="dl">"</span>  
 <span class="p">}</span>
@@ -376,9 +378,9 @@ lib/
 5
 6
 </pre></td><td class="rouge-code"><pre><span class="c1">// sw.js</span>
-<span class="nx">existingRequests</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">existingRequest</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nx">setOfExpectedUrls</span><span class="p">.</span><span class="nf">has</span><span class="p">(</span><span class="nx">existingRequest</span><span class="p">.</span><span class="nx">url</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">cache</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="nx">existingRequest</span><span class="p">);</span>
+<span class="nx">existingRequests</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">existingRequest</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">setOfExpectedUrls</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">existingRequest</span><span class="p">.</span><span class="nx">url</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">cache</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">existingRequest</span><span class="p">);</span>
   <span class="p">}</span>
 <span class="p">})</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
@@ -396,7 +398,7 @@ lib/
 3
 </pre></td><td class="rouge-code"><pre><span class="c1">// sw.js*  </span>
 <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">url</span>      
-<span class="nx">shouldRespond</span> <span class="o">=</span> <span class="nx">urlsToCacheKeys</span><span class="p">.</span><span class="nf">has</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+<span class="nx">shouldRespond</span> <span class="o">=</span> <span class="nx">urlsToCacheKeys</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Noticed that we are matching raw URLs (e.g. <code class="language-plaintext highlighter-rouge">http://localhost/js/a.js</code>) instead of the hashed ones. It prevent us from calculating hashes at runtime, which would have a significant cost. And since we have kept the relationship in <code class="language-plaintext highlighter-rouge">urlToCacheKeys</code> it’s easy to index the hashed one out.</p>
@@ -425,11 +427,11 @@ lib/
 8
 9
 </pre></td><td class="rouge-code"><pre><span class="c1">// sw.js*</span>
-<span class="nx">event</span><span class="p">.</span><span class="nf">respondWith</span><span class="p">(</span>
-  <span class="nx">caches</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="nx">cacheName</span><span class="p">).</span><span class="nf">then</span><span class="p">(</span><span class="nx">cache</span> <span class="o">=&gt;</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">cache</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="nx">urlsToCacheKeys</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="nx">url</span><span class="p">))</span>
-      <span class="p">.</span><span class="nf">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
-        <span class="nf">if </span><span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
+<span class="nx">event</span><span class="p">.</span><span class="nx">respondWith</span><span class="p">(</span>
+  <span class="nx">caches</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="nx">cacheName</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">cache</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">cache</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="nx">urlsToCacheKeys</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="nx">url</span><span class="p">))</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="k">return</span> <span class="nx">response</span><span class="p">;</span>
       <span class="p">});</span>
   <span class="p">})</span>
 <span class="p">);</span>
@@ -458,10 +460,10 @@ lib/
 11
 12
 </pre></td><td class="rouge-code"><pre><span class="c1">// cachedUrls  </span>
-<span class="nc">Set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
+<span class="nb">Set</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{}</span>
 
 <span class="c1">// urlToCacheKeys  </span>
-<span class="nc">Map</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
+<span class="nb">Map</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
   <span class="dl">"</span><span class="s2">http.../js/a.js</span><span class="dl">"</span> <span class="o">=&gt;</span> <span class="dl">"</span><span class="s2">http.../js/a.js?_sw-precache=3cb4f0</span><span class="dl">"</span><span class="p">,</span>   
   <span class="dl">"</span><span class="s2">http.../css/b.js</span><span class="dl">"</span> <span class="o">=&gt;</span> <span class="dl">"</span><span class="s2">http.../css/b.css?_sw-precache=c5a951</span><span class="dl">"</span>  
 <span class="p">}</span>
@@ -490,13 +492,13 @@ lib/
 13
 14
 </pre></td><td class="rouge-code"><pre><span class="c1">// cachedUrls  </span>
-<span class="nc">Set</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
+<span class="nb">Set</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
   <span class="dl">"</span><span class="s2">http.../js/a.js? _sw-precache=3cb4f0</span><span class="dl">"</span><span class="p">,</span>   
   <span class="dl">"</span><span class="s2">http.../css/b.css? _sw-precache=c5a951</span><span class="dl">"</span>  
 <span class="p">}</span>
 
 <span class="c1">// urlToCacheKeys  </span>
-<span class="nc">Map</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
+<span class="nb">Map</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
   <span class="dl">"</span><span class="s2">http.../js/a.js</span><span class="dl">"</span> <span class="o">=&gt;</span> <span class="dl">"</span><span class="s2">http.../js/a.js? _sw-precache=3cb4f0</span><span class="dl">"</span><span class="p">,</span>   
   <span class="dl">"</span><span class="s2">http.../css/b.js</span><span class="dl">"</span> <span class="o">=&gt;</span> <span class="dl">"</span><span class="s2">http.../css/b.css? _sw-precache=c5a951</span><span class="dl">"</span>  
 <span class="p">}</span>
@@ -526,13 +528,13 @@ lib/
 13
 14
 </pre></td><td class="rouge-code"><pre><span class="c1">// cachedUrls  </span>
-<span class="nc">Set</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
+<span class="nb">Set</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
   <span class="dl">"</span><span class="s2">http.../js/a.js? _sw-precache=3cb4f0</span><span class="dl">"</span><span class="p">,</span>   
   <span class="dl">"</span><span class="s2">http.../css/b.css? _sw-precache=c5a951</span><span class="dl">"</span>  
 <span class="p">}</span>
 
 <span class="c1">// urlToCacheKeys  </span>
-<span class="nc">Map</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
+<span class="nb">Map</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>  
   <span class="dl">"</span><span class="s2">http.../js/a.js</span><span class="dl">"</span> <span class="o">=&gt;</span> <span class="dl">"</span><span class="s2">http.../js/a.js? _sw-precache=d6420f</span><span class="dl">"</span><span class="p">,</span>   
   <span class="dl">"</span><span class="s2">http.../css/b.js</span><span class="dl">"</span> <span class="o">=&gt;</span> <span class="dl">"</span><span class="s2">http.../css/b.css? _sw-precache=c5a951</span><span class="dl">"</span>  
 <span class="p">}</span>
@@ -574,7 +576,7 @@ lib/
 <span class="nx">http</span><span class="p">...</span><span class="o">/</span><span class="nx">css</span><span class="o">/</span><span class="nx">b</span><span class="p">.</span><span class="nx">css</span><span class="p">?</span><span class="nx">_sw</span><span class="o">-</span><span class="nx">precache</span><span class="o">=</span><span class="nx">c5a951</span>
 
 <span class="c1">// setOfExpectedUrls</span>
-<span class="nc">Set</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+<span class="nb">Set</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
   <span class="dl">"</span><span class="s2">http.../js/a.js?_sw-precache=d6420f</span><span class="dl">"</span><span class="p">,</span> 
   <span class="dl">"</span><span class="s2">http.../css/b.css?_sw-precache=c5a951</span><span class="dl">"</span>
 <span class="p">}</span>

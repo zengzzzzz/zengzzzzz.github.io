@@ -18,6 +18,7 @@
     <meta property="og:description" content="1
 From PLF Require Import LibTactics.
 
+
 ">
     
     <meta property="article:published_time" content=" 2019-03-17T00:00:00Z">
@@ -118,6 +119,8 @@ From PLF Require Import LibTactics.
                         <li>
                             <a href="/archive/">Archive</a>
                         </li>
+                        
+                        
                         
                         
                         
@@ -309,9 +312,9 @@ From PLF Require Import LibTactics.
 4
 5
 6
-</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">ceval_deterministic</span><span class="p">:</span><span class="w"> </span><span class="o">∀</span><span class="no">c</span><span class="w"> </span><span class="no">st</span><span class="w"> </span><span class="no">st1</span><span class="w"> </span><span class="no">st2</span><span class="p">,</span><span class="w">
-  </span><span class="no">st</span><span class="w"> </span><span class="o">=</span><span class="p">[</span><span class="w"> </span><span class="no">c</span><span class="w"> </span><span class="p">]</span><span class="o">⇒</span><span class="w"> </span><span class="no">st1</span><span class="w"> </span><span class="o">→</span><span class="w">
-  </span><span class="no">st</span><span class="w"> </span><span class="o">=</span><span class="p">[</span><span class="w"> </span><span class="no">c</span><span class="w"> </span><span class="p">]</span><span class="o">⇒</span><span class="w"> </span><span class="no">st2</span><span class="w"> </span><span class="o">→</span><span class="w">
+</pre></td><td class="rouge-code"><pre><span class="k">Theorem</span><span class="w"> </span><span class="no">ceval_deterministic</span><span class="p">:</span><span class="w"> </span><span class="p">∀</span><span class="no">c</span><span class="w"> </span><span class="no">st</span><span class="w"> </span><span class="no">st1</span><span class="w"> </span><span class="no">st2</span><span class="o">,</span><span class="w">
+  </span><span class="no">st</span><span class="w"> </span><span class="o">=[</span><span class="w"> </span><span class="no">c</span><span class="w"> </span><span class="o">]</span><span class="p">⇒</span><span class="w"> </span><span class="no">st1</span><span class="w"> </span><span class="p">→</span><span class="w">
+  </span><span class="no">st</span><span class="w"> </span><span class="o">=[</span><span class="w"> </span><span class="no">c</span><span class="w"> </span><span class="o">]</span><span class="p">⇒</span><span class="w"> </span><span class="no">st2</span><span class="w"> </span><span class="p">→</span><span class="w">
   </span><span class="no">st1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">st2</span><span class="pi">.</span><span class="w">
 </span><span class="kp">intros</span><span class="w"> </span><span class="no">c</span><span class="w"> </span><span class="no">st</span><span class="w"> </span><span class="no">st1</span><span class="w"> </span><span class="no">st2</span><span class="w"> </span><span class="no">E1</span><span class="w"> </span><span class="no">E2</span><span class="pi">.</span><span class="w"> </span><span class="c">(* 以往如果想给 Hypo 命名必须说全 *)</span><span class="w">
 </span><span class="no">introv</span><span class="w"> </span><span class="no">E1</span><span class="w"> </span><span class="no">E2</span><span class="pi">.</span><span class="w">              </span><span class="c">(* 现在可以忽略 forall 的部分 *)</span><span class="w">
@@ -328,9 +331,9 @@ From PLF Require Import LibTactics.
 7
 8
 </pre></td><td class="rouge-code"><pre><span class="c">(* was... 需要 subst, clear *)</span><span class="w">
-</span><span class="err">-</span><span class="w"> </span><span class="kp">inversion</span><span class="w"> </span><span class="no">H</span><span class="pi">.</span><span class="w"> </span><span class="kp">subst</span><span class="pi">.</span><span class="w"> </span><span class="kp">inversion</span><span class="w"> </span><span class="no">H2</span><span class="pi">.</span><span class="w"> </span><span class="kp">subst</span><span class="pi">.</span><span class="w"> 
+</span><span class="o">-</span><span class="w"> </span><span class="kp">inversion</span><span class="w"> </span><span class="no">H</span><span class="pi">.</span><span class="w"> </span><span class="kp">subst</span><span class="pi">.</span><span class="w"> </span><span class="kp">inversion</span><span class="w"> </span><span class="no">H2</span><span class="pi">.</span><span class="w"> </span><span class="kp">subst</span><span class="pi">.</span><span class="w"> 
 </span><span class="c">(* now... *)</span><span class="w">
-</span><span class="err">-</span><span class="w"> </span><span class="no">inverts</span><span class="w"> </span><span class="no">H</span><span class="pi">.</span><span class="w"> </span><span class="no">inverts</span><span class="w"> </span><span class="no">H2</span><span class="pi">.</span><span class="w"> 
+</span><span class="o">-</span><span class="w"> </span><span class="no">inverts</span><span class="w"> </span><span class="no">H</span><span class="pi">.</span><span class="w"> </span><span class="no">inverts</span><span class="w"> </span><span class="no">H2</span><span class="pi">.</span><span class="w"> 
 
 
 </span><span class="c">(* 可以把 invert 出来的东西放在 goal 的位置让你自己用 intro 命名！*)</span><span class="w">

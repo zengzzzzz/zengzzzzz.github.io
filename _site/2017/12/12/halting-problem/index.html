@@ -18,6 +18,7 @@
     <meta property="og:description" content="
   这篇文章转载自我在知乎上的回答
 
+
 ">
     
     <meta property="article:published_time" content=" 2017-12-12T00:00:00Z">
@@ -114,6 +115,8 @@
                         <li>
                             <a href="/archive/">Archive</a>
                         </li>
+                        
+                        
                         
                         
                         
@@ -330,10 +333,10 @@
 13
 14
 15
-</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="n">halt</span> <span class="kn">import</span> <span class="n">is_halt</span>
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">halt</span> <span class="kn">import</span> <span class="n">is_halt</span>
 
 <span class="k">def</span> <span class="nf">loop</span><span class="p">():</span>
-  <span class="nf">while</span><span class="p">(</span><span class="bp">True</span><span class="p">):</span>
+  <span class="k">while</span><span class="p">(</span><span class="bp">True</span><span class="p">):</span>
       <span class="k">pass</span>
 
 <span class="c1"># 如果输入是 0，返回，否则无限循环
@@ -341,10 +344,10 @@
   <span class="k">if</span> <span class="nb">input</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
     <span class="k">return</span>
   <span class="k">else</span><span class="p">:</span>
-    <span class="nf">loop</span><span class="p">()</span>
+    <span class="n">loop</span><span class="p">()</span>
 
-<span class="nf">is_halt</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 返回 True
-</span><span class="nf">is_halt</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 返回 False
+<span class="n">is_halt</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 返回 True
+</span><span class="n">is_halt</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># 返回 False
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>是不是很棒？</p>
@@ -362,15 +365,15 @@
 9
 10
 11
-</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="n">halt</span> <span class="kn">import</span> <span class="n">is_halt</span>
+</pre></td><td class="rouge-code"><pre><span class="kn">from</span> <span class="nn">halt</span> <span class="kn">import</span> <span class="n">is_halt</span>
 
 <span class="k">def</span> <span class="nf">loop</span><span class="p">():</span>
-  <span class="nf">while</span><span class="p">(</span><span class="bp">True</span><span class="p">):</span>
+  <span class="k">while</span><span class="p">(</span><span class="bp">True</span><span class="p">):</span>
       <span class="k">pass</span>
 
 <span class="k">def</span> <span class="nf">hack</span><span class="p">(</span><span class="n">program</span><span class="p">):</span>
-  <span class="k">if</span> <span class="nf">is_halt</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">program</span><span class="p">):</span>
-    <span class="nf">loop</span><span class="p">()</span>
+  <span class="k">if</span> <span class="n">is_halt</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">program</span><span class="p">):</span>
+    <span class="n">loop</span><span class="p">()</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">return</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
@@ -380,7 +383,7 @@
 <p>那么，如果我们把「hack 程序」同时当做「程序」和「输入」喂给「停机程序」，会怎么样呢？</p>
 
 <div class="language-py highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nf">is_halt</span><span class="p">(</span><span class="n">hack</span><span class="p">,</span> <span class="n">hack</span><span class="p">)</span>
+</pre></td><td class="rouge-code"><pre><span class="n">is_halt</span><span class="p">(</span><span class="n">hack</span><span class="p">,</span> <span class="n">hack</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>你会发现，如果「停机程序」认为 <code class="language-plaintext highlighter-rouge">hack(hack)</code> 会给出结果，即 <code class="language-plaintext highlighter-rouge">is_halt(hack, hack)</code>) 返回 <code class="language-plaintext highlighter-rouge">True</code>) ，那么实际上 <code class="language-plaintext highlighter-rouge">hack(hack)</code> 会进入无限循环。而如果「停机程序」认为 <code class="language-plaintext highlighter-rouge">hack(hack)</code> 不会给出结果，即 <code class="language-plaintext highlighter-rouge">is_halt(hack, hack)</code> 返回 ，那么实际上 <code class="language-plaintext highlighter-rouge">hack(hack)</code> 会立刻返回结果……</p>
