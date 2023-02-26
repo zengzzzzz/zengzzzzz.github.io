@@ -55,6 +55,7 @@ defaults:
       show_date: true
       read_time: true
       comments: true
+      author_profile: true
 # RSS
 atom_feed:
   hide: false
