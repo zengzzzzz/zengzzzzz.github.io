@@ -1,18 +1,19 @@
-/*
- * @Author: zengzh 
- * @Date: 2023-02-27 16:58:03 
- * @Last Modified by: zengzh
- * @Last Modified time: 2023-02-27 19:57:38
- */
 ---
 layout: post
-title:  "github pages 搭建博客"
-date:   2023-02-27 16:58:03 
+title:  "create my blog with github pages"
+date:   2023-02-22 20:10:00
 categories: jekyll github-pages
-tags: jekyll RubyGems github-pages
+tags: jekyll RubyGems
 ---
 
-[TOC]
+* content
+{:toc}
+
+一直以来都想搭建一个自己的博客，之前比较忙，现在终于开始了，这篇文章记录记录一下，自己搭建博客的过程,以及遇到的问题。
+
+
+
+
 
 ### 摘要
 
@@ -26,7 +27,7 @@ tags: jekyll RubyGems github-pages
 
 ### 搭建个人博客中遇到的问题
 
-#### 搭建方式选择：
+#### 搭建方式选择
 
 | 类型          | 优点                                                         | 缺点                                                         |
 | ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -38,7 +39,7 @@ tags: jekyll RubyGems github-pages
 
 综合考虑时间成本及github对其的友好程度，最终选择采用 github pages 方案，并在 jekyll 与 hexo 之间选择了github 官方推荐的 jekyll，可直接推送源码编译，更新blog。
 
-#### GITHUB PAGES 搭建问题：
+#### GITHUB PAGES 搭建问题
 
 #### 官方教程
 
@@ -46,13 +47,13 @@ tags: jekyll RubyGems github-pages
 
 按照官方教程，构建出最简主题 minma，其主要技术栈采用 ruby+bundle+jekyll ，自己还是比较陌生的，也是一边使用，一边学习，遇到不少诸如 gem add webrick 等问题，最终也构建出了minma。但是其最基本的分页功能都不存在，不过简单大概率意味着稳定，出现问题的概率也会低很多。
 
-![image-2023-02-27-minma](/img/2023-02-27-minma.png)
+![image-20230227193934377](/img/2023-02-27-minma.png)
 
-#### 主题选择；
+#### 主题选择
 
 由于 minma 实在是简单到过分，自己考虑选几个jekyll theme 来美化一下，遂有了以下的踩坑经历。
 
-##### centarium：
+##### centarium
 
 github：https://github.com/bencentra/centrarium
 
@@ -60,10 +61,13 @@ github：https://github.com/bencentra/centrarium
 
 后来又通过google，找到在github pages 上绕过安全检测使用插件的[方法](http://ixti.net/software/2013/01/28/using-jekyll-plugins-on-github-pages.html)，在解决掉插件的问题后，部署完成后，自己感觉流程过于复杂，推送代码都要写个 rake task 不易维护，遂抛弃该方案。
 
-![image-2023-02-27-centarium](/img/2023-02-27-centarium.png)
+![image-20230227195334526](/img/2023-02-27-centarium.png)
 
-##### minimal-mistakes：
+##### minimal-mistakes
+
+
 
 
 
 ### 致谢
+
