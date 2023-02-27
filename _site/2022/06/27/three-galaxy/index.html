@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Three.js 之 13 Galaxy 银河效果生成器</title>
+    <meta name="description" content="本系列为 Three.js journey 教程学习笔记。接下来，我们学习一下如何使用粒子，本节将开发一个银河生成器，使用粒子效果生成各种各样的银河效果。">
+
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
+    <link rel="stylesheet" href="/css/main.css ">
+    <link rel="canonical" href="http://localhost:4000/2022/06/27/three-galaxy/">
+    <link rel="alternate" type="application/rss+xml" title="HyG" href="http://localhost:4000/feed.xml ">
+
+
+    <script>
+    // 百度统计代码
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?cf8506e0ef223e57ff6239944e5d46a4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72449510-4', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header id="top">
+    <div class="wrapper">
+        <a href="/" class="brand">HyG</a>
+        <small>Front-end Dev Engineer</small>
+        <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+        <nav id="headerNav">
+            <ul>
+                <li>
+                    
+                    <a href="/">
+                    
+                        <i class="fa fa-home"></i>Home
+                    </a>
+                </li>
+
+                
+                    
+                    <li>
+                        
+                        <a href="/archive/">
+                        
+                            <i class="fa fa-archive"></i>Archives
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/category/">
+                        
+                            <i class="fa fa-th-list"></i>Categories
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/tag/">
+                        
+                            <i class="fa fa-tags"></i>Tags
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/collection/">
+                        
+                            <i class="fa fa-bookmark"></i>Collections
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/demo/">
+                        
+                            <i class="fa fa-play"></i>Demos
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/about/">
+                        
+                            <i class="fa fa-heart"></i>About
+                        </a>
+                    </li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>Three.js 之 13 Galaxy 银河效果生成器</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2022-06-27
+            </div>
+
+            <div class="label-card">
+                <i class="fa fa-user"></i>HyG
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#Three.js" title="Category: Three.js" rel="category">Three.js</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+            </div>
+
+            <div class="label-card">
+            
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <!--a href="/tag/#Three.js" title="Tag: Three.js" rel="tag">Three.js</a-->
+        <a href="/tag/#Three.js" title="Tag: Three.js" rel="tag">Three.js</a>&nbsp;
+    
+        <!--a href="/tag/#WebGL" title="Tag: WebGL" rel="tag">WebGL</a-->
+        <a href="/tag/#WebGL" title="Tag: WebGL" rel="tag">WebGL</a>
+    
+  
+
+</span>
+
+            </div>
+
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <ul id="markdown-toc">
+  <li><a href="#创建粒子" id="markdown-toc-创建粒子">创建粒子</a></li>
+  <li><a href="#形状" id="markdown-toc-形状">形状</a>    <ul>
+      <li><a href="#半径" id="markdown-toc-半径">半径</a></li>
+      <li><a href="#分支" id="markdown-toc-分支">分支</a></li>
+      <li><a href="#偏转角度" id="markdown-toc-偏转角度">偏转角度</a></li>
+      <li><a href="#随机扩散" id="markdown-toc-随机扩散">随机扩散</a></li>
+      <li><a href="#颜色" id="markdown-toc-颜色">颜色</a></li>
+    </ul>
+  </li>
+  <li><a href="#小结" id="markdown-toc-小结">小结</a></li>
+</ul>
+
+<p>本系列为 <a href="https://threejs-journey.com/">Three.js journey</a> 教程学习笔记。</p>
+
+<p>接下来，我们学习一下如何使用粒子，本节将开发一个银河生成器，使用粒子效果生成各种各样的银河效果。</p>
+
+<h1 id="创建粒子">创建粒子</h1>
+
+<p>根据上一节创建一个粒子立方体，并加入 debug UI，设置尺寸和数量</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">THREE</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">three</span><span class="dl">'</span>
+<span class="k">import</span> <span class="dl">'</span><span class="s1">./style.css</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">OrbitControls</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">three/examples/jsm/controls/OrbitControls</span><span class="dl">'</span>
+<span class="k">import</span> <span class="o">*</span> <span class="k">as</span> <span class="nx">dat</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">lil-gui</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">stats</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../common/stats</span><span class="dl">'</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">listenResize</span><span class="p">,</span> <span class="nx">dbClkfullScreen</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../common/utils</span><span class="dl">'</span>
+
+<span class="c1">// Canvas</span>
+<span class="kd">const</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">#mainCanvas</span><span class="dl">'</span><span class="p">)</span> <span class="k">as</span> <span class="nx">HTMLCanvasElement</span>
+
+<span class="c1">// Scene</span>
+<span class="kd">const</span> <span class="nx">scene</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">Scene</span><span class="p">()</span>
+
+<span class="c1">// Size</span>
+<span class="kd">const</span> <span class="nx">sizes</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">width</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerWidth</span><span class="p">,</span>
+  <span class="na">height</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">innerHeight</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1">// Camera</span>
+<span class="kd">const</span> <span class="nx">camera</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">PerspectiveCamera</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="nx">sizes</span><span class="p">.</span><span class="nx">width</span> <span class="o">/</span> <span class="nx">sizes</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="nx">camera</span><span class="p">.</span><span class="nx">position</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">controls</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OrbitControls</span><span class="p">(</span><span class="nx">camera</span><span class="p">,</span> <span class="nx">canvas</span><span class="p">)</span>
+<span class="nx">controls</span><span class="p">.</span><span class="nx">enableDamping</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="nx">controls</span><span class="p">.</span><span class="nx">zoomSpeed</span> <span class="o">=</span> <span class="mf">0.3</span>
+
+<span class="cm">/**
+ * Galaxy
+ */</span>
+<span class="kd">const</span> <span class="nx">parameters</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">count</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+  <span class="na">size</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">geometry</span><span class="p">:</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">BufferGeometry</span>
+<span class="kd">let</span> <span class="nx">material</span><span class="p">:</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">PointsMaterial</span>
+<span class="kd">let</span> <span class="nx">points</span><span class="p">:</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">Points</span><span class="o">&lt;</span><span class="nx">THREE</span><span class="p">.</span><span class="nx">BufferGeometry</span><span class="p">,</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">PointsMaterial</span><span class="o">&gt;</span>
+
+<span class="kd">const</span> <span class="nx">generatorGalaxy</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nf">if </span><span class="p">(</span><span class="nx">points</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">geometry</span><span class="p">.</span><span class="nf">dispose</span><span class="p">()</span>
+    <span class="nx">material</span><span class="p">.</span><span class="nf">dispose</span><span class="p">()</span>
+    <span class="nx">scene</span><span class="p">.</span><span class="nf">remove</span><span class="p">(</span><span class="nx">points</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Geometry</span>
+  <span class="nx">geometry</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">BufferGeometry</span><span class="p">()</span>
+  <span class="kd">const</span> <span class="nx">position</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Float32Array</span><span class="p">(</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">count</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="nf">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">i3</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="p">}</span>
+  <span class="nx">geometry</span><span class="p">.</span><span class="nf">setAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">position</span><span class="dl">'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">BufferAttribute</span><span class="p">(</span><span class="nx">position</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+  <span class="c1">// Material</span>
+  <span class="nx">material</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">PointsMaterial</span><span class="p">({</span>
+    <span class="na">size</span><span class="p">:</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span>
+    <span class="na">sizeAttenuation</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">depthWrite</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">blending</span><span class="p">:</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">AdditiveBlending</span><span class="p">,</span>
+  <span class="p">})</span>
+
+  <span class="nx">points</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">Points</span><span class="p">(</span><span class="nx">geometry</span><span class="p">,</span> <span class="nx">material</span><span class="p">)</span>
+  <span class="nx">scene</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">points</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nf">generatorGalaxy</span><span class="p">()</span>
+
+<span class="c1">// Renderer</span>
+<span class="kd">const</span> <span class="nx">renderer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">WebGLRenderer</span><span class="p">({</span>
+  <span class="nx">canvas</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="nx">renderer</span><span class="p">.</span><span class="nf">setSize</span><span class="p">(</span><span class="nx">sizes</span><span class="p">.</span><span class="nx">width</span><span class="p">,</span> <span class="nx">sizes</span><span class="p">.</span><span class="nx">height</span><span class="p">)</span>
+<span class="nx">renderer</span><span class="p">.</span><span class="nf">setPixelRatio</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">devicePixelRatio</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="nf">listenResize</span><span class="p">(</span><span class="nx">sizes</span><span class="p">,</span> <span class="nx">camera</span><span class="p">,</span> <span class="nx">renderer</span><span class="p">)</span>
+<span class="nf">dbClkfullScreen</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span>
+
+<span class="c1">// Animations</span>
+<span class="kd">const</span> <span class="nx">tick</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">stats</span><span class="p">.</span><span class="nf">begin</span><span class="p">()</span>
+
+  <span class="nx">controls</span><span class="p">.</span><span class="nf">update</span><span class="p">()</span>
+
+  <span class="c1">// Render</span>
+  <span class="nx">renderer</span><span class="p">.</span><span class="nf">render</span><span class="p">(</span><span class="nx">scene</span><span class="p">,</span> <span class="nx">camera</span><span class="p">)</span>
+  <span class="nx">stats</span><span class="p">.</span><span class="nf">end</span><span class="p">()</span>
+  <span class="nf">requestAnimationFrame</span><span class="p">(</span><span class="nx">tick</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nf">tick</span><span class="p">()</span>
+
+<span class="cm">/**
+ * Debug
+ */</span>
+<span class="kd">const</span> <span class="nx">gui</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dat</span><span class="p">.</span><span class="nc">GUI</span><span class="p">()</span>
+
+<span class="nx">gui</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">controls</span><span class="p">,</span> <span class="dl">'</span><span class="s1">autoRotate</span><span class="dl">'</span><span class="p">)</span>
+<span class="nx">gui</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">controls</span><span class="p">,</span> <span class="dl">'</span><span class="s1">autoRotateSpeed</span><span class="dl">'</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+
+<span class="nx">gui</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">parameters</span><span class="p">,</span> <span class="dl">'</span><span class="s1">count</span><span class="dl">'</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">,</span> <span class="mi">100</span><span class="p">).</span><span class="nf">onFinishChange</span><span class="p">(</span><span class="nx">generatorGalaxy</span><span class="p">)</span>
+<span class="nx">gui</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">parameters</span><span class="p">,</span> <span class="dl">'</span><span class="s1">size</span><span class="dl">'</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">).</span><span class="nf">onFinishChange</span><span class="p">(</span><span class="nx">generatorGalaxy</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><img src="https://gw.alicdn.com/imgextra/i2/O1CN01uWyFKf1DLdyeyFHIc_!!6000000000200-2-tps-1127-624.png" alt="" /></p>
+
+<h1 id="形状">形状</h1>
+
+<h2 id="半径">半径</h2>
+
+<p>增加半径配置参数</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Galaxy
+ */</span>
+<span class="kd">const</span> <span class="nx">parameters</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">count</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+  <span class="na">size</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+  <span class="na">radius</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>沿着 x 轴半径内随机渲染</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// Geometry</span>
+  <span class="nx">geometry</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">BufferGeometry</span><span class="p">()</span>
+  <span class="kd">const</span> <span class="nx">position</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Float32Array</span><span class="p">(</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">count</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="nf">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">i3</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="kd">const</span> <span class="nx">radius</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">radius</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span><span class="p">]</span> <span class="o">=</span> <span class="nx">radius</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="p">}</span>
+  <span class="nx">geometry</span><span class="p">.</span><span class="nf">setAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">position</span><span class="dl">'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">BufferAttribute</span><span class="p">(</span><span class="nx">position</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><img src="https://gw.alicdn.com/imgextra/i4/O1CN01ppLLEN1bt7htKGFfN_!!6000000003522-2-tps-1127-621.png" alt="" /></p>
+
+<h2 id="分支">分支</h2>
+
+<p>增加配置</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Galaxy
+ */</span>
+<span class="kd">const</span> <span class="nx">parameters</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">count</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+  <span class="na">size</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+  <span class="na">radius</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="na">branches</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>修改点的位置</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// Geometry</span>
+  <span class="nx">geometry</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">BufferGeometry</span><span class="p">()</span>
+  <span class="kd">const</span> <span class="nx">position</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Float32Array</span><span class="p">(</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">count</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="nf">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">i3</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="kd">const</span> <span class="nx">radius</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">radius</span>
+    <span class="kd">const</span> <span class="nx">branchesAngle</span> <span class="o">=</span> <span class="p">((</span><span class="nx">i</span> <span class="o">%</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">branches</span><span class="p">)</span> <span class="o">/</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">branches</span><span class="p">)</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">cos</span><span class="p">(</span><span class="nx">branchesAngle</span><span class="p">)</span> <span class="o">*</span> <span class="nx">radius</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sin</span><span class="p">(</span><span class="nx">branchesAngle</span><span class="p">)</span> <span class="o">*</span> <span class="nx">radius</span>
+  <span class="p">}</span>
+  <span class="nx">geometry</span><span class="p">.</span><span class="nf">setAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">position</span><span class="dl">'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">BufferAttribute</span><span class="p">(</span><span class="nx">position</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><img src="https://gw.alicdn.com/imgextra/i3/O1CN010B4u8V1rda7UNKsTG_!!6000000005654-2-tps-1133-630.png" alt="" /></p>
+
+<h2 id="偏转角度">偏转角度</h2>
+
+<p>增加配置</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * Galaxy
+ */</span>
+<span class="kd">const</span> <span class="nx">parameters</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">count</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+  <span class="na">size</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+  <span class="na">radius</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="na">branches</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="na">spin</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>增加偏转角度</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// Geometry</span>
+  <span class="nx">geometry</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">BufferGeometry</span><span class="p">()</span>
+  <span class="kd">const</span> <span class="nx">position</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Float32Array</span><span class="p">(</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">count</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="nf">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">i3</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="kd">const</span> <span class="nx">radius</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">radius</span>
+    <span class="kd">const</span> <span class="nx">branchesAngle</span> <span class="o">=</span> <span class="p">((</span><span class="nx">i</span> <span class="o">%</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">branches</span><span class="p">)</span> <span class="o">/</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">branches</span><span class="p">)</span> <span class="o">*</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="kd">const</span> <span class="nx">spinAngle</span> <span class="o">=</span> <span class="nx">radius</span> <span class="o">*</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">spin</span>
+
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">cos</span><span class="p">(</span><span class="nx">branchesAngle</span> <span class="o">+</span> <span class="nx">spinAngle</span><span class="p">)</span> <span class="o">*</span> <span class="nx">radius</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sin</span><span class="p">(</span><span class="nx">branchesAngle</span> <span class="o">+</span> <span class="nx">spinAngle</span><span class="p">)</span> <span class="o">*</span> <span class="nx">radius</span>
+  <span class="p">}</span>
+  <span class="nx">geometry</span><span class="p">.</span><span class="nf">setAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">position</span><span class="dl">'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">BufferAttribute</span><span class="p">(</span><span class="nx">position</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><img src="https://gw.alicdn.com/imgextra/i1/O1CN01v2DFjf1EomnJs4IEd_!!6000000000399-2-tps-1128-627.png" alt="" /></p>
+
+<h2 id="随机扩散">随机扩散</h2>
+
+<p>增加如下代码</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">randomness</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">const</span> <span class="nx">randomX</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">randomness</span> <span class="o">*</span> <span class="nx">radius</span>
+    <span class="kd">const</span> <span class="nx">randomY</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">randomness</span> <span class="o">*</span> <span class="nx">radius</span>
+    <span class="kd">const</span> <span class="nx">randomZ</span> <span class="o">=</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">randomness</span> <span class="o">*</span> <span class="nx">radius</span>
+
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">cos</span><span class="p">(</span><span class="nx">branchesAngle</span> <span class="o">+</span> <span class="nx">spinAngle</span><span class="p">)</span> <span class="o">*</span> <span class="nx">radius</span> <span class="o">+</span> <span class="nx">randomX</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">randomY</span>
+    <span class="nx">position</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">sin</span><span class="p">(</span><span class="nx">branchesAngle</span> <span class="o">+</span> <span class="nx">spinAngle</span><span class="p">)</span> <span class="o">*</span> <span class="nx">radius</span> <span class="o">+</span> <span class="nx">randomZ</span>
+</code></pre></div></div>
+
+<p><img src="https://gw.alicdn.com/imgextra/i4/O1CN01f6ENoo1k7KvNNkWst_!!6000000004636-2-tps-1133-630.png" alt="" /></p>
+
+<p>但仔细看效果还不是很好，我们借助幂函数来提升效果</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">randomnessPower</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">const</span> <span class="nx">randomX</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">**</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">randomnessPower</span>
+      <span class="o">*</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="p">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+      <span class="o">*</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">randomness</span>
+      <span class="o">*</span> <span class="nx">radius</span>
+    <span class="kd">const</span> <span class="nx">randomY</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">**</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">randomnessPower</span>
+      <span class="o">*</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="p">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+      <span class="o">*</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">randomness</span>
+      <span class="o">*</span> <span class="nx">radius</span>
+    <span class="kd">const</span> <span class="nx">randomZ</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">**</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">randomnessPower</span>
+      <span class="o">*</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="p">?</span> <span class="mi">1</span> <span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+      <span class="o">*</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">randomness</span>
+      <span class="o">*</span> <span class="nx">radius</span>
+</code></pre></div></div>
+
+<p>效果好多了</p>
+
+<p><img src="https://gw.alicdn.com/imgextra/i4/O1CN01m2j6Xb24oCIzvy7mE_!!6000000007437-2-tps-1130-630.png" alt="" /></p>
+
+<h2 id="颜色">颜色</h2>
+
+<p>为了有更好的效果我们添加渐变色的感觉</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nx">insideColor</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#ff6030</span><span class="dl">'</span><span class="p">,</span>
+  <span class="nx">outsideColor</span><span class="p">:</span> <span class="dl">'</span><span class="s1">#1b3984</span><span class="dl">'</span><span class="p">,</span>
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">gui</span><span class="p">.</span><span class="nf">addColor</span><span class="p">(</span><span class="nx">parameters</span><span class="p">,</span> <span class="dl">'</span><span class="s1">insideColor</span><span class="dl">'</span><span class="p">).</span><span class="nf">onFinishChange</span><span class="p">(</span><span class="nx">generatorGalaxy</span><span class="p">)</span>
+<span class="nx">gui</span><span class="p">.</span><span class="nf">addColor</span><span class="p">(</span><span class="nx">parameters</span><span class="p">,</span> <span class="dl">'</span><span class="s1">outsideColor</span><span class="dl">'</span><span class="p">).</span><span class="nf">onFinishChange</span><span class="p">(</span><span class="nx">generatorGalaxy</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>我们要为每个顶点设置颜色，所以需要将 <code class="language-plaintext highlighter-rouge">vertexColors</code> 设置为 true</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">// Material</span>
+  <span class="nx">material</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">PointsMaterial</span><span class="p">({</span>
+    <span class="na">size</span><span class="p">:</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">size</span><span class="p">,</span>
+    <span class="na">sizeAttenuation</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="na">depthWrite</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">blending</span><span class="p">:</span> <span class="nx">THREE</span><span class="p">.</span><span class="nx">AdditiveBlending</span><span class="p">,</span>
+    <span class="na">vertexColors</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="p">})</span>
+</code></pre></div></div>
+
+<p>然后添加颜色属性，如上一节课学习的那样</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">const</span> <span class="nx">position</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Float32Array</span><span class="p">(</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">count</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="kd">const</span> <span class="nx">colors</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Float32Array</span><span class="p">(</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">count</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nf">for </span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">count</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="p">...</span>
+
+    <span class="nx">colors</span><span class="p">[</span><span class="nx">i3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="nx">colors</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="nx">colors</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="p">}</span>
+  <span class="nx">geometry</span><span class="p">.</span><span class="nf">setAttribute</span><span class="p">(</span><span class="dl">'</span><span class="s1">color</span><span class="dl">'</span><span class="p">,</span> <span class="k">new</span> <span class="nx">THREE</span><span class="p">.</span><span class="nc">BufferAttribute</span><span class="p">(</span><span class="nx">colors</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><img src="https://gw.alicdn.com/imgextra/i4/O1CN01hapnHH27o96hnjATX_!!6000000007843-2-tps-1131-629.png" alt="" /></p>
+
+<p>接下来设置渐变色</p>
+
+<p><code class="language-plaintext highlighter-rouge">.lerp ( color : Color, alpha : Float ) : this</code></p>
+
+<p>color - 用于收敛的颜色。
+alpha - 介于0到1的数字。</p>
+
+<p>将该颜色的RGB值线性插值到传入参数的RGB值。alpha参数可以被认为是两种颜色之间的比例值，其中0是当前颜色和1.0是第一个参数的颜色。</p>
+
+<p><code class="language-plaintext highlighter-rouge">.lerpColors ( color1 : Color, color2 : Color, alpha : Float ) : this</code></p>
+
+<p>color1 - 开始的颜色。
+color2 - 结束收敛的颜色。
+alpha - 介于0到1的数字。</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">const</span> <span class="nx">mixedColor</span> <span class="o">=</span> <span class="nx">colorInside</span><span class="p">.</span><span class="nf">clone</span><span class="p">()</span>
+    <span class="nx">mixedColor</span><span class="p">.</span><span class="nf">lerp</span><span class="p">(</span><span class="nx">colorOutside</span><span class="p">,</span> <span class="nx">radius</span> <span class="o">/</span> <span class="nx">parameters</span><span class="p">.</span><span class="nx">radius</span><span class="p">)</span>
+
+    <span class="p">...</span>
+
+    <span class="nx">colors</span><span class="p">[</span><span class="nx">i3</span><span class="p">]</span> <span class="o">=</span> <span class="nx">mixedColor</span><span class="p">.</span><span class="nx">r</span>
+    <span class="nx">colors</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nx">mixedColor</span><span class="p">.</span><span class="nx">g</span>
+    <span class="nx">colors</span><span class="p">[</span><span class="nx">i3</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nx">mixedColor</span><span class="p">.</span><span class="nx">b</span>
+</code></pre></div></div>
+
+<p>最终效果如下</p>
+
+<p><img src="https://gw.alicdn.com/imgextra/i4/O1CN01xId16g1PKynGmy1pU_!!6000000001823-2-tps-1135-633.png" alt="" /></p>
+
+<p><img src="https://gw.alicdn.com/imgextra/i2/O1CN01e4GDed1v8DSaHo3dL_!!6000000006127-1-tps-510-267.gif" alt="" /></p>
+
+<p>在线 <a href="https://gaohaoyang.github.io/threeJourney/19-galaxy-generator/">demo 链接</a></p>
+
+<p>可扫码访问</p>
+
+<p><img src="https://gw.alicdn.com/imgextra/i2/O1CN01JQkgp71O6x2pyqpxB_!!6000000001657-2-tps-200-200.png" alt="" /></p>
+
+<p><a href="https://github.com/Gaohaoyang/threeJourney/tree/main/src/19-galaxy-generator">demo 源码</a></p>
+
+<h1 id="小结">小结</h1>
+
+<p>本节我们学习了如何设置各种debug参数，来调节我们的银河效果。对粒子特效有了更深入的研究。动画部分我们会在后续的课程中再详细学习。</p>
+
+
+        </article>
+        <hr>
+
+        
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <h2 id="similar_posts">Similar Posts</h2>
+                        <ul>
+                        
+                        <li class="relatedPost">
+                            <a href="/2022/10/09/three-realistic-render/">Three.js 之 19 realistic render 真实渲染
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2022/08/21/three-custom-model/">Three.js 之 18 使用 Blender 设计和导出模型
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2022/08/09/three-import-model/">Three.js 之 17 Import Model 导入模型
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2022/07/18/three-physics/">Three.js 之 16 Physics 物理引擎
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2022/07/10/three-scroll-animation/">Three.js 之 15 Scroll based animation 基于页面滚动的动画
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                        
+                        <li class="relatedPost">
+                            <a href="/2022/07/03/three-raycaster/">Three.js 之 14 Raycaster 光线投射
+                            
+                            </a>
+                        </li>
+                        
+                        
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+        
+            </ul>
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+        <p><strong>上一篇</strong> <a href="/2022/06/26/three-particles/">Three.js 之 12 Particles 粒子效果</a></p>
+        
+    </div>
+    <div class="nex">
+
+        
+        <p><strong>下一篇</strong> <a href="/2022/07/03/three-raycaster/">Three.js 之 14 Raycaster 光线投射</a></p>
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function() {
+        this.page.url = 'http://localhost:4000/2022/06/27/three-galaxy/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://localhost:4000/2022/06/27/three-galaxy/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+
+        s.src = '//gaohaoyang.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+
+            <!-- Content -->
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    
+                    <li><a href="#similar_posts">Similar Posts</a></li>
+                    
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <!-- <div class="side">bbbb</div> -->
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+
+
+    <div class="wrapper">
+
+        <p class="description">
+             本站记录我前端之旅的沿途风景！ 
+        </p>
+        <p class="contact">
+            Contact me at: 
+            <a href="https://github.com/Gaohaoyang" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+            <a href="mailto:gaohaoyang126@126.com" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>  
+            <a href="http://weibo.com/3115521wh" title="Weibo"><i class="fa fa-weibo" aria-hidden="true"></i></a>  
+            <a href="https://www.zhihu.com/people/gaohaoyang" title="Zhihu"><i class="iconfont icon-daoruzhihu"></i></a>   
+            <a href="https://www.facebook.com/gaohaoyang.water" title="Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>   
+            <a href="https://www.linkedin.com/in/gaohaoyang" title="LinkedIn"><i class="fa fa-linkedin" aria-hidden="true"></i></a>  
+        </p>
+        <p>
+            本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        </p>
+        <p class="power">
+            <span>
+                Site powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">Github Pages</a>.
+            </span>
+            <span>
+                Theme designed by <a href="https://github.com/Gaohaoyang">HyG</a>.
+            </span>
+        </p>
+    </div>
+</footer>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <div class="back-to-top">
+    <a href="#top" data-scroll>
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/smooth-scroll.min.js " charset="utf-8"></script>
+    <script type="text/javascript">
+      smoothScroll.init({
+        speed: 500, // Integer. How fast to complete the scroll in milliseconds
+        easing: 'easeInOutCubic', // Easing pattern to use
+        offset: 20, // Integer. How far to offset the scrolling anchor location in pixels
+      });
+    </script>
+    <!-- <script src=" /js/scroll.min.js " charset="utf-8"></script> -->
+  </body>
+
+</html>

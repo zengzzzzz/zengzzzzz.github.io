@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HyG</title>
+    <description></description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Mon, 27 Feb 2023 14:24:49 +0800</pubDate>
+    <lastBuildDate>Mon, 27 Feb 2023 14:24:49 +0800</lastBuildDate>
+    <generator>Jekyll v4.3.2</generator>
+    
+      <item>
+        <title>摩天轮动画的实现揭秘</title>
+        <description>
+摩天轮动画的实现揭秘
+
+&lt;img src=&quot;https://gw.alicdn.com/imgextra/i2/O1CN01WMJfsa23yty2Z4YOn_!!6000000007325-1-tps-600-329.gif&quot; alt=&quot;&quot; /&gt;
+
+恰好近期业务上开发了类似这样的摩天轮动画，我将其中的实现原理分享给大家。摩天轮动画主要分为 2 部分，一个是摩天轮上每个房间位置布局，另一个就是旋转动画了。
+</description>
+        <pubDate>Sat, 15 Oct 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/10/15/ferris-wheel/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/10/15/ferris-wheel/</guid>
+        
+        <category>Animation</category>
+        
+        
+        <category>JavaScript</category>
+        
+      </item>
+    
+      <item>
+        <title>Three.js 之 19 realistic render 真实渲染</title>
+        <description>
+本系列为 &lt;a href=&quot;https://threejs-journey.com/&quot;&gt;Three.js journey&lt;/a&gt; 教程学习笔记。
+
+我们上一节最后将汉堡模型导入到了 Three.js 的场景中了，但是颜色效果很奇怪。为了让它渲染的更真实，我们需要做一些额外的操作，接下来就一起看看吧~
+</description>
+        <pubDate>Sun, 09 Oct 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/10/09/three-realistic-render/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/10/09/three-realistic-render/</guid>
+        
+        <category>Three.js</category>
+        
+        <category>WebGL</category>
+        
+        
+        <category>Three.js</category>
+        
+      </item>
+    
+      <item>
+        <title>Three.js 之 18 使用 Blender 设计和导出模型</title>
+        <description>
+本系列为 &lt;a href=&quot;https://threejs-journey.com/&quot;&gt;Three.js journey&lt;/a&gt; 教程学习笔记。
+
+使用 Blender 设计和导出模型
+
+有很多 3D 建模的软件，比如 Cinema 4D、Maya、3DS Max、Blender、ZBrush 等。本节课我们将学习 Blender 因为它是免费的，并且性能也还不错。
+
+本节课学习完成后，你并不会成为 Blender 的专家，因为它需要更多完整的课程才能熟练。我们只是学习的软件的入门，以便能够应对更多地简单模型。熟悉一个模型的制作以及它是如何被导出并导入到 WebGL 中去的。
+</description>
+        <pubDate>Sun, 21 Aug 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/08/21/three-custom-model/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/08/21/three-custom-model/</guid>
+        
+        <category>Three.js</category>
+        
+        <category>WebGL</category>
+        
+        
+        <category>Three.js</category>
+        
+      </item>
+    
+      <item>
+        <title>Three.js 之 17 Import Model 导入模型</title>
+        <description>
+本系列为 &lt;a href=&quot;https://threejs-journey.com/&quot;&gt;Three.js journey&lt;/a&gt; 教程学习笔记。
+
+导入模型
+
+Three.js 提供了很多原始模型，但如果我们需要更复杂的模型，最好使用 3D 软件建模，然后导入到场景中。本节我们就来学学如何导入一个做好的 3D 模型。
+</description>
+        <pubDate>Tue, 09 Aug 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/08/09/three-import-model/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/08/09/three-import-model/</guid>
+        
+        <category>Three.js</category>
+        
+        <category>WebGL</category>
+        
+        
+        <category>Three.js</category>
+        
+      </item>
+    
+      <item>
+        <title>Three.js 之 16 Physics 物理引擎</title>
+        <description>
+本系列为 &lt;a href=&quot;https://threejs-journey.com/&quot;&gt;Three.js journey&lt;/a&gt; 教程学习笔记。
+
+physics 物理引擎
+
+在 WebGL 里使用物理引擎是非常棒的一种体验，人们会非常享受与这些物体产生物理效果，例如重力、弹性、加速度、摩擦力、碰撞等。有很多方式实现物理效果，并且取决于项目中想怎么使用。如果只是简单物理效果，可以使用数学（三角函数）和 Raycaster 来实现，但复杂效果，还是非常建议送一个物理引擎相关的库。
+</description>
+        <pubDate>Mon, 18 Jul 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/07/18/three-physics/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/07/18/three-physics/</guid>
+        
+        <category>Three.js</category>
+        
+        <category>WebGL</category>
+        
+        
+        <category>Three.js</category>
+        
+      </item>
+    
+      <item>
+        <title>Three.js 之 15 Scroll based animation 基于页面滚动的动画</title>
+        <description>
+本系列为 &lt;a href=&quot;https://threejs-journey.com/&quot;&gt;Three.js journey&lt;/a&gt; 教程学习笔记。
+
+Scroll based animation 基于页面滚动的动画
+
+本节我们将学习基于页面滚动的动画。很好的将之前所学的内容做一个复习和运用。
+
+我们会把 WebGL 部分固定到页面中，随着页面的滚动 WebGL 中也随之相应的产生动画效果。这种联动的效果会带来非常好的体验，并且也会让你的页面看起来很高级很有未来感。联动的效果主要是使用 camera 的角度变化来实现。并且最后会加入一些滚动到某个区域后的动画效果。
+</description>
+        <pubDate>Sun, 10 Jul 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/07/10/three-scroll-animation/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/07/10/three-scroll-animation/</guid>
+        
+        <category>Three.js</category>
+        
+        <category>WebGL</category>
+        
+        
+        <category>Three.js</category>
+        
+      </item>
+    
+      <item>
+        <title>Three.js 之 14 Raycaster 光线投射</title>
+        <description>
+本系列为 &lt;a href=&quot;https://threejs-journey.com/&quot;&gt;Three.js journey&lt;/a&gt; 教程学习笔记。
+
+光线投射 Raycaster
+
+光线投射可以发射一个特定方向的射线，来检测是否有物体与这个射线相交。有以下的使用场景：
+
+&lt;ul&gt;
+  &lt;li&gt;检测玩家前方是否有墙&lt;/li&gt;
+  &lt;li&gt;检测射击游戏是否击中了什么物体&lt;/li&gt;
+  &lt;li&gt;检测是否有什么物体在鼠标下，并模拟鼠标事件&lt;/li&gt;
+  &lt;li&gt;等&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 03 Jul 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/07/03/three-raycaster/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/07/03/three-raycaster/</guid>
+        
+        <category>Three.js</category>
+        
+        <category>WebGL</category>
+        
+        
+        <category>Three.js</category>
+        
+      </item>
+    
+      <item>
+        <title>Three.js 之 13 Galaxy 银河效果生成器</title>
+        <description>
+本系列为 &lt;a href=&quot;https://threejs-journey.com/&quot;&gt;Three.js journey&lt;/a&gt; 教程学习笔记。
+
+接下来，我们学习一下如何使用粒子，本节将开发一个银河生成器，使用粒子效果生成各种各样的银河效果。
+</description>
+        <pubDate>Mon, 27 Jun 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/06/27/three-galaxy/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/06/27/three-galaxy/</guid>
+        
+        <category>Three.js</category>
+        
+        <category>WebGL</category>
+        
+        
+        <category>Three.js</category>
+        
+      </item>
+    
+      <item>
+        <title>Three.js 之 12 Particles 粒子效果</title>
+        <description>
+本系列为 &lt;a href=&quot;https://threejs-journey.com/&quot;&gt;Three.js journey&lt;/a&gt; 教程学习笔记。
+
+粒子特效
+
+听到粒子特效，是不是无比期待？可以用它实现非常多的效果如星空、烟雾、雨、灰尘、火等。
+
+粒子特效的优势是即使使用了成百上千的例子，也能保证比较高的帧率。缺点是每个粒子都由一个始终面向相机的平面（两个三角形）组成。
+
+创建粒子像创建几何体一样简单，我们使用 &lt;a href=&quot;https://threejs.org/docs/index.html#api/zh/materials/PointsMaterial&quot;&gt;PointsMaterial&lt;/a&gt; 材质，它不会创建几何体而是创建非常多的点 &lt;a href=&quot;https://threejs.org/docs/index.html#api/zh/objects/Points&quot;&gt;Points&lt;/a&gt;。下面我们开始吧。
+</description>
+        <pubDate>Sun, 26 Jun 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/06/26/three-particles/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/06/26/three-particles/</guid>
+        
+        <category>Three.js</category>
+        
+        <category>WebGL</category>
+        
+        
+        <category>Three.js</category>
+        
+      </item>
+    
+      <item>
+        <title>Three.js 之 11 Haunted House 恐怖鬼屋</title>
+        <description>
+本系列为 &lt;a href=&quot;https://threejs-journey.com/&quot;&gt;Three.js journey&lt;/a&gt; 教程学习笔记。
+
+本节将使用我们之前学习的内容来创建一个鬼屋。我们会创建一个房子，有门、屋顶、和一些灌木，我们也会创建一些墓碑，还有幽灵的光飘过并产生投影。
+</description>
+        <pubDate>Sun, 19 Jun 2022 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2022/06/19/three-haunted-house/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/06/19/three-haunted-house/</guid>
+        
+        <category>Three.js</category>
+        
+        <category>WebGL</category>
+        
+        
+        <category>Three.js</category>
+        
+      </item>
+    
+  </channel>
+</rss>
