@@ -22,6 +22,7 @@ tags: jekyll RubyGems
 
 ### 安装Ruby
 
+![下载](/img/1.jpeg)
 ruby官网下载安装：[https://www.ruby-lang.org/en/downloads/](https://www.ruby-lang.org/en/downloads/)
 
 安装完成后配置环境变量
