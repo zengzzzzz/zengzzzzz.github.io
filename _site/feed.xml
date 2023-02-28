@@ -5,14 +5,14 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 28 Feb 2023 10:43:09 +0800</pubDate>
-    <lastBuildDate>Tue, 28 Feb 2023 10:43:09 +0800</lastBuildDate>
+    <pubDate>Tue, 28 Feb 2023 15:02:42 +0800</pubDate>
+    <lastBuildDate>Tue, 28 Feb 2023 15:02:42 +0800</lastBuildDate>
     <generator>Jekyll v4.3.2</generator>
     
       <item>
         <title>create my blog with github pages</title>
         <description>
-一直以来都想搭建一个自己的博客，之前比较忙，现在终于开始了，这篇文章记录一下，自己搭建博客的过程以及遇到的问题。
+一直以来都想搭建一个自己的博客，之前比较忙，现在终于开始了，这篇文章记录一下自己搭建博客的过程以及遇到的问题。
 </description>
         <pubDate>Thu, 23 Feb 2023 04:10:00 +0800</pubDate>
         <link>http://localhost:4000/2023/02/23/create-my-blog-with-github-pages/</link>
@@ -20,7 +20,7 @@
         
         <category>jekyll</category>
         
-        <category>RubyGems</category>
+        <category>github</category>
         
         
         <category>jekyll</category>
