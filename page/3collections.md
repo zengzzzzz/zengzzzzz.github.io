@@ -28,6 +28,8 @@ ddia <br>
 福格行为模型 <br>
 人类群星闪耀时 <br>
 音乐简史 <br>
+飞轮效应 <br>
+
 ## articles
 
 #### CS
@@ -38,6 +40,7 @@ ddia <br>
 
 #### non-CS
 
+[ali the code of personal growth](https://mp.weixin.qq.com/s/UWXxz03AevZrI1qNfC7WZA)<br>
 
 ## algorithm
 
