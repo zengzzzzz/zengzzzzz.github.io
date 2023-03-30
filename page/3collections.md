@@ -37,6 +37,7 @@ ddia <br>
 [The mythical 10x programmer](http://antirez.com/news/112)<br>
 [skiplist  survey](https://mp.weixin.qq.com/s/BPTrtRs_rQNCUmK05jO9aQ)<br>
 [golang perfomance optimize](https://mp.weixin.qq.com/s/UHaCLhiIyLYVrba-nEUONA)<br>
+[c++ 20 coroutine](https://zhuanlan.zhihu.com/p/498253158)<br>
 
 #### non-CS
 
