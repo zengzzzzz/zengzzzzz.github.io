@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>JWT SHA256</title>
+    <meta name="description" content="最近在对接外部服务时，遇到JWT相关的一些问题，这篇文章做一下关于JWT的一些总结。">
+
+    <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
+    <link rel="stylesheet" href="/css/main.css ">
+    <link rel="canonical" href="http://localhost:4000/2023/03/16/jwt-hsa256/">
+    <link rel="alternate" type="application/rss+xml" title="zengzzzzz" href="http://localhost:4000/feed.xml ">
+
+
+    <script>
+    // 百度统计代码
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+
+
+    <script>
+    // google analytics
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'G-LEFXXJK1Z8', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+
+
+</head>
+
+
+  <body>
+
+    <header id="top">
+    <div class="wrapper">
+        <a href="/" class="brand">zengzzzzz</a>
+        <small>the more you know, the less you know</small>
+        <button id="headerMenu" class="menu"><i class="fa fa-bars"></i></button>
+        <nav id="headerNav">
+            <ul>
+                <li>
+                    
+                    <a href="/">
+                    
+                        <i class="fa fa-home"></i>Home
+                    </a>
+                </li>
+
+                
+                    
+                    <li>
+                        
+                        <a href="/archive/">
+                        
+                            <i class="fa fa-archive"></i>Archives
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/category/">
+                        
+                            <i class="fa fa-th-list"></i>Categories
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/tag/">
+                        
+                            <i class="fa fa-tags"></i>Tags
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/collection/">
+                        
+                            <i class="fa fa-bookmark"></i>Collections
+                        </a>
+                    </li>
+                    
+                
+                    
+                    <li>
+                        
+                        <a href="/about/">
+                        
+                            <i class="fa fa-heart"></i>About
+                        </a>
+                    </li>
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+        <div class="page clearfix" post>
+    <div class="left">
+        <h1>JWT SHA256</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2023-03-16
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#jwt" title="Category: jwt" rel="category">jwt</a>&nbsp;
+    
+        <a href="/category/#internet" title="Category: internet" rel="category">internet</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+            </div>
+
+            <div class="label-card">
+            
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <!--a href="/tag/#jwt" title="Tag: jwt" rel="tag">jwt</a-->
+        <a href="/tag/#jwt" title="Tag: jwt" rel="tag">jwt</a>&nbsp;
+    
+        <!--a href="/tag/#sha256" title="Tag: sha256" rel="tag">sha256</a-->
+        <a href="/tag/#sha256" title="Tag: sha256" rel="tag">sha256</a>&nbsp;
+    
+        <!--a href="/tag/#http" title="Tag: http" rel="tag">http</a-->
+        <a href="/tag/#http" title="Tag: http" rel="tag">http</a>
+    
+  
+
+</span>
+
+            </div>
+
+        </div>
+        <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
+        <ul id="markdown-toc">
+  <li><a href="#摘要" id="markdown-toc-摘要">摘要</a></li>
+  <li><a href="#问题说明" id="markdown-toc-问题说明">问题说明</a>    <ul>
+      <li><a href="#jwt简介" id="markdown-toc-jwt简介">JWT简介</a>        <ul>
+          <li><a href="#使用场景" id="markdown-toc-使用场景">使用场景</a>            <ul>
+              <li><a href="#授权" id="markdown-toc-授权">授权</a></li>
+              <li><a href="#信息交换" id="markdown-toc-信息交换">信息交换</a></li>
+            </ul>
+          </li>
+          <li><a href="#jwt结构" id="markdown-toc-jwt结构">JWT结构</a>            <ul>
+              <li><a href="#header" id="markdown-toc-header">header</a></li>
+              <li><a href="#payload" id="markdown-toc-payload">payload</a>                <ul>
+                  <li><a href="#注册声明" id="markdown-toc-注册声明">注册声明</a></li>
+                  <li><a href="#公共声明" id="markdown-toc-公共声明">公共声明</a></li>
+                  <li><a href="#私人声明" id="markdown-toc-私人声明">私人声明</a></li>
+                </ul>
+              </li>
+              <li><a href="#signature" id="markdown-toc-signature">signature</a></li>
+              <li><a href="#putting-all-together" id="markdown-toc-putting-all-together">putting all together</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#比较研究" id="markdown-toc-比较研究">比较研究</a>    <ul>
+      <li><a href="#rfc-文档比较" id="markdown-toc-rfc-文档比较">RFC 文档比较</a>        <ul>
+          <li><a href="#rf7515与rfc7797的比较" id="markdown-toc-rf7515与rfc7797的比较">RF7515与RFC7797的比较</a></li>
+          <li><a href="#rfc7519与rfc8725比较" id="markdown-toc-rfc7519与rfc8725比较">RFC7519与RFC8725比较</a></li>
+        </ul>
+      </li>
+      <li><a href="#第三方模块比较" id="markdown-toc-第三方模块比较">第三方模块比较</a></li>
+      <li><a href="#第三方模块比较-1" id="markdown-toc-第三方模块比较-1">第三方模块比较</a>        <ul>
+          <li><a href="#pyjwt" id="markdown-toc-pyjwt">pyjwt</a>            <ul>
+              <li><a href="#简介" id="markdown-toc-简介">简介</a></li>
+            </ul>
+          </li>
+          <li><a href="#authlib" id="markdown-toc-authlib">authlib</a>            <ul>
+              <li><a href="#简介-1" id="markdown-toc-简介-1">简介</a></li>
+            </ul>
+          </li>
+          <li><a href="#pyjwt-authlib-比较" id="markdown-toc-pyjwt-authlib-比较">pyjwt authlib 比较</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#总结" id="markdown-toc-总结">总结</a>    <ul>
+      <li><a href="#参考文档" id="markdown-toc-参考文档">参考文档</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>最近在对接外部服务时，遇到JWT相关的一些问题，这篇文章做一下关于JWT的一些总结。</p>
+
+<h3 id="摘要">摘要</h3>
+
+<p>本文内容主要有俩点：1 说明JWT采用HS256生成token的基本原理 ； 2 说明github 主流JWT生成库在采用HS256情况下生成token不一致的原因；</p>
+
+<h2 id="问题说明">问题说明</h2>
+
+<p>在某次对接外部平台的API接口时，对方说明需要采用JWT HS256获取授权token，但是在生成token的过程中，自己编码实现及采用第三方包生成，以及不同第三方包生成的token之间存在差异，部分可以调通对方接口，部分则不可以，遂引发对该问题的探究。</p>
+
+<h3 id="jwt简介">JWT简介</h3>
+
+<p>JSON Web Token 是一种开放标准 （涉及到的RFC： <a href="https://www.rfc-editor.org/rfc/rfc7515">RF7515</a> <a href="https://www.rfc-editor.org/rfc/rfc7519">RF7519</a>  <a href="https://www.rfc-editor.org/rfc/rfc7519">RF7797</a>  <a href="https://www.rfc-editor.org/rfc/rfc8725">RF8725</a> ）定义了一种用于可以在各方之间安全传输信息的Json对象。该对象可以通过 <a href="https://en.wikipedia.org/wiki/HMAC">HMAC</a> 算法或者使用 <a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA </a>或 <a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm">ECDSA</a>的公钥、私钥进行签名，则该信息是可以进行验证和信任的。</p>
+
+<h4 id="使用场景">使用场景</h4>
+
+<h5 id="授权">授权</h5>
+
+<p>授权是最常见的场景，用户登录后，每个后续请求都将包含JWT，允许用户访问该令牌允许的路由、服务器和资源。通常使用在<a href="https://www.rfc-editor.org/rfc/rfc6750">Bearer</a> 模式的 Authorization header中，格式如下：</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">Authorization:</span><span class="w"> </span><span class="err">Bearer</span><span class="w"> </span><span class="err">&lt;token&gt;</span><span class="w">
+</span></code></pre></div></div>
+
+<h5 id="信息交换">信息交换</h5>
+
+<p>JWT可以进行安全传输信息，JWT可以签名，可以使用公钥、私钥对确定发送者的身份，验证内容是否被篡改。</p>
+
+<h4 id="jwt结构">JWT结构</h4>
+
+<p>在紧凑的形式中，JWT 由三部分组成，采用点 (.) 进行分隔，其通常结构如下：</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">xxxxx.yyyyyy.zzzzzz</span><span class="w">
+</span></code></pre></div></div>
+
+<h5 id="header">header</h5>
+
+<p>header 通常由两部分组成：令牌类型 JWT 及所使用的签名算法 eg: SHA256 , 该json被<a href="https://base64.guru/standards/base64url">Base64Url</a>编码作为JWT的第一部分，格式如下：</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"alg"</span><span class="p">:</span><span class="s2">"HS256"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"typ"</span><span class="p">:</span><span class="s2">"JWT"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h5 id="payload">payload</h5>
+
+<p>payload 指有效负载，其中包含关于实体和附加数据的陈述作用的声明，分为三种类型，包含注册声明、公共声明、私人声明等。</p>
+
+<h6 id="注册声明">注册声明</h6>
+
+<p>预定义的声明，并非强制性，但建议使用，类似： iss （发行者）、exp（到期时间）、sub（主题）</p>
+
+<h6 id="公共声明">公共声明</h6>
+
+<p>可以由使用JWT的人随意定义，但是为了避免冲突，应该在 <a href="https://www.iana.org/assignments/jwt/jwt.xhtml">Iana json web token</a> 令牌注册表中定义</p>
+
+<h6 id="私人声明">私人声明</h6>
+
+<p>在同意使用它们各方之间共享信息而创建的自定义声明</p>
+
+<p>格式如下：</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h5 id="signature">signature</h5>
+
+<p>创建signatire需要 encoded header 、encoded payload 、 secret key 、algorithm 对其进行签名， HMAC SHA256 签名算法如下：</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">HMACSHA</span><span class="mi">256</span><span class="err">(</span><span class="w">
+  </span><span class="err">base</span><span class="mi">64</span><span class="err">UrlEncode(header)</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="s2">"."</span><span class="w"> </span><span class="err">+</span><span class="w">
+  </span><span class="err">base</span><span class="mi">64</span><span class="err">UrlEncode(payload),</span><span class="w">
+  </span><span class="err">secret)</span><span class="w">
+</span></code></pre></div></div>
+
+<h5 id="putting-all-together">putting all together</h5>
+
+<p>输出是由点分割的三个 Base64-URL 字符串，即为JWT格式，格式如下：</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="err">base</span><span class="mi">64</span><span class="err">UrlEncode(header).base</span><span class="mi">64</span><span class="err">UrlEncode(payload).signature</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="比较研究">比较研究</h2>
+
+<h3 id="rfc-文档比较">RFC 文档比较</h3>
+
+<p>在JWT中主要涉及到的RFC文档包括： <a href="https://www.rfc-editor.org/rfc/rfc7515">RF7515</a> <a href="https://www.rfc-editor.org/rfc/rfc7519">RF7519</a>  <a href="https://www.rfc-editor.org/rfc/rfc7519">RF7797</a>  <a href="https://www.rfc-editor.org/rfc/rfc8725">RF8725</a></p>
+
+<h4 id="rf7515与rfc7797的比较">RF7515与RFC7797的比较</h4>
+
+<p>RFC7515 RFC7797 都是关于 JWS （JSON web signature）的相关规范，但其涉及到JWS的不同方面并服务于不同的目的。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>简述</th>
+      <th>主要变更点说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RFC7515</td>
+      <td>定义JWS的语法与处理，指定了JWS的格式及并描述了如何对JWS内容进行数据签名或者验证，提供了在应用程序中使用JWS的基本框架</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>RFC7797</td>
+      <td>是RFC7515的一项补充规范，向JWS 引入分离内容的功能，允许将JWS payload 与 JWS 本身分开存储和传输，为处理 payload 比较大或者分离的情况，不必对payload 进行编码，以改善空间和时间</td>
+      <td>在该RFC文档的实现下，将会在header中添加标注b64 以标明是否需要进行Base64url 转化，则在一些具体的实现或者对接文档中会见到并不会对payload进行base64url 转化，这种现象也是正常的。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="rfc7519与rfc8725比较">RFC7519与RFC8725比较</h4>
+
+<p>RFC7519 RFC8725 都是关于 JWT （JSON Web Tokens）的相关规范, RF8725 是对JWT的最佳实践的一些规范。</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>简述</th>
+      <th>主要变更点说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RFC7519</td>
+      <td>定义了JWT的主要规范，在本文的 JWT结构部分便是按照RFC7519的</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>RFC8725</td>
+      <td>提供了在不同上下文中安全使用JWT的最佳实践，提供了使用JWT的指南和建议，包含令牌格式、密码算法、令牌生命周期等主题。</td>
+      <td>使用HTTPS 传输JWT<br />限制JWT生命周期<br />使用强密码算法<br /> 避免在错误信息或者其他响应中泄漏时间信息<br /></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="第三方模块比较">第三方模块比较</h3>
+
+<h3 id="第三方模块比较-1">第三方模块比较</h3>
+
+<p>因为在第三方服务对接时，通常使用python，则搜索github，并在其中发现可用于直接调用的主流库有<a href="https://github.com/jpadilla/pyjwt/">pyjwt</a> 、<a href="https://github.com/mpdavis/python-jose/">python-jose</a>、<a href="https://github.com/lepture/authlib">authlib</a>等，该处选择主要的pyjwt与authlib进行对比分析。</p>
+
+<h4 id="pyjwt">pyjwt</h4>
+
+<h5 id="简介">简介</h5>
+
+<p>python基于RFC7519实现的关于JWT解码编码的第三方模块 <a href="https://github.com/jpadilla/pyjwt">github</a></p>
+
+<p>主要提供以下功能：</p>
+
+<ol>
+  <li>
+    <p>生成JWT</p>
+
+    <p>使用PyJWT可以方便地生成JWT，该过程包括设置头部、载荷和签名。可以使用多种算法来生成签名，如HMAC、RSA和ECDSA。下面是一个使用HMAC-SHA256算法生成JWT的示例:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">jwt</span>
+<span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">'user_id'</span><span class="p">:</span> <span class="mi">1234567890</span><span class="p">,</span> <span class="s">'name'</span><span class="p">:</span> <span class="s">'John Doe'</span><span class="p">}</span>
+<span class="n">secret_key</span> <span class="o">=</span> <span class="s">'secret'</span>
+<span class="n">jwt_token</span> <span class="o">=</span> <span class="n">jwt</span><span class="p">.</span><span class="nf">encode</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">secret_key</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s">'HS256'</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>解码JWT</p>
+
+    <p>使用PyJWT可以轻松解码JWT，获取其头部和载荷信息。下面是一个解码JWT并获取信息的示例</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">jwt</span>
+<span class="n">jwt_token</span> <span class="o">=</span> <span class="s">'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJuYW1lIjoiSm9obiBEb2UifQ.pS6S...XqW8'</span>
+<span class="n">secret_key</span> <span class="o">=</span> <span class="s">'secret'</span>
+<span class="n">decoded</span> <span class="o">=</span> <span class="n">jwt</span><span class="p">.</span><span class="nf">decode</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">,</span> <span class="n">secret_key</span><span class="p">,</span> <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="s">'HS256'</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">decoded</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>验证签名</p>
+
+    <p>使用PyJWT可以验证JWT的签名是否有效。可以使用多种算法来验证签名，如HMAC、RSA和ECDSA。下面是一个验证JWT签名的示例</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">jwt</span>
+<span class="n">jwt_token</span> <span class="o">=</span> <span class="s">'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJuYW1lIjoiSm9obiBEb2UifQ.pS6S...XqW8'</span>
+<span class="n">secret_key</span> <span class="o">=</span> <span class="s">'secret'</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">decoded</span> <span class="o">=</span> <span class="n">jwt</span><span class="p">.</span><span class="nf">decode</span><span class="p">(</span><span class="n">jwt_token</span><span class="p">,</span> <span class="n">secret_key</span><span class="p">,</span> <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="s">'HS256'</span><span class="p">])</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"JWT signature is valid"</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">jwt</span><span class="p">.</span><span class="n">InvalidSignatureError</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="s">"JWT signature is invalid"</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h4 id="authlib">authlib</h4>
+
+<h5 id="简介-1">简介</h5>
+
+<p>用于简化Web应用程序中身份验证和授权的实现。它提供了一系列工具和协议的实现，以便于开发人员在应用程序中轻松添加安全验证和授权功能，如OAuth、OpenID Connec、JWT等。</p>
+
+<p>Authlib的主要功能包括：</p>
+
+<ol>
+  <li>OAuth支持：Authlib提供了OAuth 1.0、OAuth 2.0协议的实现，包括授权、访问令牌管理等功能。OAuth是一种流行的授权协议，用于允许第三方应用程序在用户授权的情况下访问他们的资源。</li>
+  <li>OpenID Connect支持：Authlib提供了OpenID Connect协议的实现，它建立在OAuth 2.0协议之上，为身份验证提供了一个标准化的框架。开发人员可以使用Authlib来验证OpenID Connect提供者的令牌、获取用户信息等。</li>
+  <li>JWT支持：Authlib提供了对JSON Web Tokens（JWTs）的支持，用于处理安全令牌的编码、解码和验证。JWT是一种开放标准，用于在不同实体之间安全地传输信息，比如在客户端和服务器之间。</li>
+  <li>第三方身份验证支持：Authlib支持多种第三方身份验证提供商，如Google、Facebook、Twitter等。开发人员可以使用Authlib来实现与这些身份验证提供商的身份验证和授权。</li>
+  <li>多种框架支持：Authlib支持多种Web框架，如Flask、Django、FastAPI等。开发人员可以使用Authlib来简化身份验证和授权的实现，并且不需要编写大量的重复代码。</li>
+</ol>
+
+<p>JWT编码和解码示例：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="n">authlib.jose</span> <span class="kn">import</span> <span class="n">jwt</span>
+
+<span class="c1"># 编码JWT
+</span><span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s">'sub'</span><span class="p">:</span> <span class="s">'1234567890'</span><span class="p">,</span> <span class="s">'name'</span><span class="p">:</span> <span class="s">'John Doe'</span><span class="p">,</span> <span class="s">'iat'</span><span class="p">:</span> <span class="nf">int</span><span class="p">(</span><span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">())}</span>
+<span class="n">secret_key</span> <span class="o">=</span> <span class="s">'your-secret-key'</span>
+<span class="n">encoded_jwt</span> <span class="o">=</span> <span class="n">jwt</span><span class="p">.</span><span class="nf">encode</span><span class="p">({</span><span class="s">'alg'</span><span class="p">:</span> <span class="s">'HS256'</span><span class="p">,</span> <span class="s">'typ'</span><span class="p">:</span> <span class="s">'JWT'</span><span class="p">},</span> <span class="n">payload</span><span class="p">,</span> <span class="n">secret_key</span><span class="p">)</span>
+
+<span class="c1"># 解码JWT
+</span><span class="n">decoded_jwt</span> <span class="o">=</span> <span class="n">jwt</span><span class="p">.</span><span class="nf">decode</span><span class="p">(</span><span class="n">encoded_jwt</span><span class="p">,</span> <span class="n">secret_key</span><span class="p">,</span> <span class="n">algorithms</span><span class="o">=</span><span class="p">[</span><span class="s">'HS256'</span><span class="p">])</span>
+</code></pre></div></div>
+<h4 id="pyjwt-authlib-比较">pyjwt authlib 比较</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>区别</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>pyjwt</td>
+      <td>pyjwt主要关注JWT，提供了编码、解码和验证JWT的基本功能<br />pyjwt相对来说比较小巧，代码量少,功能相对简单，可更容易实现定制化的解决方案<br /></td>
+    </tr>
+    <tr>
+      <td>authlib</td>
+      <td>authlib提供了更全面的OAuth 1.0a/2.0和OpenID Connect协议支持，同时也提供了JWT编码和解码的功能<br />功能更多，配置更加复杂，定制化开发难度较pyjwt高<br /></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="总结">总结</h2>
+
+<p>综上，在实际使用过程中，我们在使用第三方库或者自己进行JWT对接时，要了解对方所使用的具体的RFC协议，而不仅仅是指定JWT及加密方式就可以的。在不同的RFC协议版本中，对同种方式的实现是存在差别的的，而这种差别可能会导致我们不能及时与对方进行对接，尤其是在使用第三方库时，要了解第三方库中关于JWT的具体实现时所遵循的RFC协议，以避免不必要的问题。</p>
+
+<h3 id="参考文档">参考文档</h3>
+
+<p>https://jwt.io/</p>
+
+<p>https://www.iana.org/assignments/jwt/jwt.xhtml</p>
+
+<p>https://www.rfc-editor.org/rfc/rfc6750</p>
+
+<p>https://www.rfc-editor.org/rfc/rfc1945</p>
+
+<p>https://en.wikipedia.org/wiki/HMAC</p>
+
+<p>https://en.wikipedia.org/wiki/RSA_(cryptosystem)</p>
+
+<p>https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm</p>
+
+<p>https://www.rfc-editor.org/rfc/rfc7515</p>
+
+<p>https://www.rfc-editor.org/rfc/rfc7519</p>
+
+<p>https://www.rfc-editor.org/rfc/rfc7797</p>
+
+<p>https://www.rfc-editor.org/rfc/rfc8725</p>
+
+<p>https://base64.guru/standards/base64url</p>
+
+<p>https://github.com/jpadilla/pyjwt/</p>
+
+        </article>
+        <hr>
+
+        
+        
+            
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+                    
+                
+            
+        
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+        <p><strong>上一篇</strong> <a href="/2023/02/23/create-my-blog-with-github-pages/">create my blog with github pages</a></p>
+        
+    </div>
+    <div class="nex">
+
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+
+
+<div id="disqus_thread"></div>
+<script>
+    /**
+     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+
+    var disqus_config = function() {
+        this.page.url = 'http://localhost:4000/2023/03/16/jwt-hsa256/'; // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://localhost:4000/2023/03/16/jwt-hsa256/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document,
+            s = d.createElement('script');
+
+        s.src = '//zengzzzzz.disqus.com/embed.js';
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+
+    </div>
+    <button class="anchor"><i class="fa fa-anchor"></i></button>
+    <div class="right">
+        <div class="wrap">
+
+            <!-- Content -->
+            <div class="side content">
+                <div>
+                    Content
+                </div>
+                <ul id="content-side" class="content-ul">
+                    
+                    <li><a href="#comments">Comments</a></li>
+                </ul>
+            </div>
+            <!-- 其他div框放到这里 -->
+            <!-- <div class="side">bbbb</div> -->
+        </div>
+    </div>
+</div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
+<script src="/js/pageContent.js " charset="utf-8"></script>
+
+
+    <footer class="site-footer">
+
+
+    <div class="wrapper">
+
+        <p class="description">
+             zengzzzzz 
+        </p>
+        <p class="contact">
+            Contact me at: 
+            <a href="https://github.com/zengzzzzz" title="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>  
+            <a href="mailto:zengzzzzz@gmail.com" title="email"><i class="fa fa-envelope-o" aria-hidden="true"></i></a>        
+        </p>
+        <p>
+            本站总访问量<span id="busuanzi_value_site_pv"></span>次，本站访客数<span id="busuanzi_value_site_uv"></span>人次，本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+        </p>
+        <p class="power">
+            <span>
+                Site powered by <a href="https://jekyllrb.com/">Jekyll</a> & <a href="https://pages.github.com/">Github Pages</a> & <a href="https://github.com/Gaohaoyang">HyG</a>.
+            </span>
+        </p>
+    </div>
+</footer>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <div class="back-to-top">
+    <a href="#top" data-scroll>
+        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>
+</div>
+
+    <script src=" /js/main.js " charset="utf-8"></script>
+    <script src=" /js/smooth-scroll.min.js " charset="utf-8"></script>
+    <script type="text/javascript">
+      smoothScroll.init({
+        speed: 500, // Integer. How fast to complete the scroll in milliseconds
+        easing: 'easeInOutCubic', // Easing pattern to use
+        offset: 20, // Integer. How far to offset the scrolling anchor location in pixels
+      });
+    </script>
+    <!-- <script src=" /js/scroll.min.js " charset="utf-8"></script> -->
+  </body>
+
+</html>
