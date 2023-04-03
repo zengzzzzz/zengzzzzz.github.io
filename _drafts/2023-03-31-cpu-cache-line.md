@@ -75,6 +75,18 @@ NUMA node0 CPU(s):   0-7
 
 ## 场景测试
 
+在cpu 高速缓存中存在以下规则，当一个CPU修改高速缓存行中的字节时，计算机中的其他CPU会被通知，其cache被视为无效。
+
+### 场景设定
+
+CPU1 读取数据a（a小于cache行大小），存入cpu1高速缓存，
+
+#### 参考文章
+
+https://www.makeuseof.com/tag/what-is-cpu-cache/
+
+https://cloud.tencent.com/developer/article/1021491
+
 
 
 
