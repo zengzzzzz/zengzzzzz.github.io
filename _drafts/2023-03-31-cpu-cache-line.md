@@ -87,6 +87,84 @@ https://www.makeuseof.com/tag/what-is-cpu-cache/
 
 https://cloud.tencent.com/developer/article/1021491
 
+```golang
+package main
 
+import (
+ "fmt"
+ "sync"
+)
+
+type Bits interface {
+ AddOne()
+ Get() int
+}
+
+type BitsWithCache interface {
+ AddOne()
+ Get() int
+}
+
+type BitImpl struct {
+ a int
+ b int
+}
+
+type BitWithCacheImpl struct {
+ a int
+ placeholder [64]byte
+ b int
+}
+
+func (bits *BitImpl) AddOne() {
+ bits.a += 1
+ a := bits.a
+ _ = a
+}
+
+func (bits *BitImpl) Get() int {
+ return bits.a
+}
+
+func (bits *BitWithCacheImpl) AddOne() {
+ bits.a += 1
+ a := bits.a
+ _ = a
+}
+
+func (bits *BitWithCacheImpl) Get() int {
+ return bits.a
+}
+
+func SetCPUCore(num int) {
+ runtime.GOMAXPROCS(num)
+}
+
+func thdFunc(wg *sync.WaitGroup, bits interface{}) {
+ defer wg.Done()
+
+ for i := 0; i < execCount; i++ {
+  bits.(Bits).AddOne()
+  a := bits.(Bits).Get()
+  _ = a
+ }
+}
+
+func main() {
+ var wg sync.WaitGroup
+ wg.Add(2)
+
+ bits := &BitImpl{}
+ bitsWithCache := &BitWithCacheImpl{}
+
+ go thdFunc(&wg, bits)
+ go thdFunc(&wg, bitsWithCache)
+
+ wg.Wait()
+
+ fmt.Printf("a = %d, b = %d\n", bits.Get(), bits.b)
+ fmt.Printf("a = %d, b = %d\n", bitsWithCache.Get(), bitsWithCache.b)
+}
+```
 
 
