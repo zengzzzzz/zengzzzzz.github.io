@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "cpu cache test"
-date:   2023-04-08 20:10:00
+date:   2023-04-05 20:10:00
 categories: os cpu
 tags: cpu golang cache
 ---
