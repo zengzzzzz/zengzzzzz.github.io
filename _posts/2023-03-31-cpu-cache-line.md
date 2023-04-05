@@ -9,6 +9,11 @@ tags: modular exponentiation
 * content
 {:toc}
 
+之前在阅读别人的代码时，发现了一个有趣的现象，那就是在多核环境下，对于一个64字节的结构体，如果其成员变量不是64字节对齐的，那么在多核环境下，对其进行读写操作时，会出现性能下降的情况。这篇文章就来探究一下。
+
+
+
+
 
 ## 多核环境下cache line 测试
 
@@ -41,6 +46,9 @@ type atomicLimiter struct {
           |                         |
           |  Slowest              Large
           | -----------------------  Main Memory (RAM)
+cache 简单示意图：
+
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/cpu_cache/cpu_cache_architecture.png)
 
 在lunix上可以使用lscpu来查看 cpu cache 的信息：
 
