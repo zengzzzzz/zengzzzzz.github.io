@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "CPU Cache Test"
-date:   2023-04-05 20:10:00
+title:  "cpu cache test"
+date:   2023-04-04 20:10:00
 categories: os cpu
 tags: cpu golang cache
 ---
@@ -28,7 +28,6 @@ type atomicLimiter struct {
 	clock      Clock
 }
 ```
-
 ## CPU CACHE 简介
 
 通常情况下，我们无法直接干预对缓存的操作，但可以根据缓存的特点对程序代码实施特定优化，从而更好的利用高速缓存。高速缓存策略会尽可能地将访问频繁的数据放入cache中，该过程是动态的，cache中的数据不会一直不变，目前一般机器的CPU cache 可分为一级、二级、三级缓存，较旧的机器可能只有二级缓存。该缓存和RAM在空间和效率上的关系如下：
@@ -46,6 +45,8 @@ type atomicLimiter struct {
           |                         |
           |  Slowest              Large
           | -----------------------  Main Memory (RAM)
+
+
 cache 简单示意图：
 
 ![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/cpu_cache/cpu_cache_architecture.png)
@@ -80,15 +81,12 @@ NUMA node0 CPU(s):   0-7
 ```
 
 说明该机器为8核且存在三级缓存，由于不同处理器之间都具有自己的高速缓存，所以当俩个cpu cache中都存有数据a，就有可能需要进行同步数据。而cache直接进行同步数据的最小单元为cache行大小，每一行cache的大小都是64bytes，当cpu 被告知 cache 第一行的第一个byte 为脏数据时，cpu会将每一行都进行同步。
-
 ## 场景测试
 
 在cpu 高速缓存中存在以下规则，当一个CPU修改高速缓存行中的字节时，计算机中的其他CPU会被通知，其cache被视为无效。
-
 ### 场景设定
 
 CPU1 读取数据a（a小于cache行大小），存入CPU1高速缓存；CPU2 读取数据a，并存入CPU2高速缓存；CPU1 修改数据a，a被放回CPU1高速缓存行，但该信息不会写入RAM；CPU2访问数据a时，发现其高速缓存已经失效，需要CPU1将数据a写回RAM中，然后CPU2重新读取该数据，可完成一次俩个CPU之间cache的同步。
-
 ### 测试代码
 
 自己采用了golang进行测试上述问题，选择的方法主要采用了在runtime时，限制CPU核数的方式来指定是相同CPU，还是不同的CPU运行；读者也可以尝试使用golang中[设置CPU亲和性](https://pkg.go.dev/golang.org/x/sys/unix#SchedSetaffinity)的方式来指定CPU运行，其效果应该是一致的。
@@ -198,12 +196,11 @@ func thdFunc4(wg *sync.WaitGroup, bits *BitsWithCache) {
 4. 跑在一个CPU上，填充placeholder
 
 测试结果如下：
-![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/cpu_cache/bench_cpu_cache_test.png)
 
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/cpu_cache/bench_cpu_cache_test.png)
 ### 测试结论
 
 综上，虽在测试时，并未严格指定运行的CPU，但是在其结果中可看出 情况1 2下，有无填充placeholder是存在明显区别的。而情况3 4下，无论有无填充placeholder，其结果都是一致的，这是因为情况3 4下，其实是在同一个CPU上运行，是不存在cache line失效的问题，但会比情况1慢一些，是因为只指定了一个CPU运行的。
-
 ## 总结
 
 其实在日常工作中，某些对于CPU cache的优化还是比较重要的，但是在这个过程中如果为了追求性能将所有的共享字节都填入填充字节，可能会带来空间的浪费。在某些不同的硬件体系架构下，cache line的大小可能会不一样，或者可能会共享cache等等，所以在测试时要视具体情况而定的。
