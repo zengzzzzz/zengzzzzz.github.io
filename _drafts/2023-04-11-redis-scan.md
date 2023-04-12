@@ -18,3 +18,7 @@ tags: redis iteration
 ### 摘要
 
 本文旨在说明模幂运算的数学原理，并与快速幂进行对比分析。
+
+#### 参考文章
+
+https://www.cnblogs.com/thrillerz/p/4527510.html
