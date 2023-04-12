@@ -22,3 +22,5 @@ tags: redis iteration
 #### 参考文章
 
 https://www.cnblogs.com/thrillerz/p/4527510.html
+
+https://github.com/redis/redis/pull/579
