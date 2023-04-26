@@ -24,3 +24,14 @@ tags: redis iteration
 https://www.cnblogs.com/thrillerz/p/4527510.html
 
 https://github.com/redis/redis/pull/579
+
+https://ifaceless.github.io/2019/12/17/implement-redis-dict-in-go/
+
+https://github.com/huangz1990/annotated_redis_source.git
+
+https://chromium.googlesource.com/external/github.com/gomodule/redigo/+/refs/heads/master/redis/scan.go
+
+https://www.cnblogs.com/thrillerz/p/4527510.html
+
+https://www.lixueduan.com/posts/redis/redis-scan/#4-%E5%B0%8F%E7%BB%93
+
