@@ -17,8 +17,8 @@ type: page
 - work on ShenZhen, China until 2023.
 - interested in web development, database and gateway.
 - classic music lover.
-- like to reading an writing.
-- GitHub [zengzzzzz](https://github.com/zengzzzz)
+- like to reading and writing.
+- GitHub：[zengzzzzz](https://github.com/zengzzzzz)
 - email：zengzzzzz@gmail.com
 <!-- ## contact me * GitHub：[zengzzzzz](https://github.com/zengzzzz) * email：zengzzzzz@gmail.com -->
  
