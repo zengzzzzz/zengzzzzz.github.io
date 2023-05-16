@@ -29,3 +29,6 @@ tags: vscode ai copilot codeium
 ### 未来发展
 
 #### 参考文章
+
+https://github.com/features/copilot/
+https://docs.github.com/zh
