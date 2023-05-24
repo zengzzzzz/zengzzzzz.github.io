@@ -24,7 +24,7 @@ tags: vscode ai copilot codeium
 
 ![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/ai_assisted_coding/AI%20Assisted%20Coding%20development%20history-Map%201.png)
 
-### 基本原理
+### 基本原理（第四代）
 
 ![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/ai_assisted_coding/AI%20assisted%20coding%20basic%20principle-Map%201.png)
 
