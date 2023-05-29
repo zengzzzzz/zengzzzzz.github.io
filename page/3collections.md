@@ -43,6 +43,7 @@ The Go Programming Language<br>
 #### non-CS
 
 [ali the code of personal growth](https://mp.weixin.qq.com/s/UWXxz03AevZrI1qNfC7WZA)<br>
+[th art of the awkward 1 to 1](https://medium.com/@mrabkin/the-art-of-the-awkward-1-1-f4e1dcbd1c5c)<br>
 
 ## algorithm
 
