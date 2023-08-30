@@ -276,6 +276,7 @@ https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/
 http://nginx.org/en/docs/http/ngx_http_upstream_module.html
 http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download/pdf/DNSLB11825295_zh-CN_cn_181214111834_public_df469752bf687c1ff97c4331eba6090f.pdf
 https://iq.opengenus.org/layer-4-layer-7-load-balancing/
+https://blog.envoyproxy.io/introduction-to-modern-network-load-balancing-and-proxying-a57f6ff80236
 
 
 
