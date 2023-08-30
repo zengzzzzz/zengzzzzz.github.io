@@ -25,7 +25,7 @@ tags: nginx progrem-optimization LB
 
 风控规则引擎规则流P99变化（6-29）：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > image-20230727151045138.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/6_29_P99_change.png)
 
 # 问题分析
 对于发生性能改善的原因，我们将从以下几个主要的方面进行分析，抽丝剥茧得到最终答案，并为我们之后的性能优化提供可行方案。
@@ -35,35 +35,33 @@ tags: nginx progrem-optimization LB
 
 引擎发版时间：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_16881091335984.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/engine_release_time.png)
 
 P99变化时间：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_185303ff-5105-4aeb-ba09-e8792c13fb1e.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/risk-aif-pricing-p99.png)
 
 引擎发版代码变更：
-
-https://git.silvrr.com/risk-backend/risk-rule-engine/-/merge_requests/2016/diffs
 
 ### 代码变更内容分析
 因为优化发生的时间与发版时间重合，且代码中涉及到可能会对服务性能优化的点包含以下几点：
 
 #### Redis 请求由同步改异步
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > image-20230727153626660.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/redis_conn_change_1.png)
 
 已经将redis 连接由同步更改为异步，但是根据代码逻辑在RF1121 中并不会调用到Redis，整体服务使用redis 较少。
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > image-20230727154013252.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/redis_conn_change_2.png)
 
 有可能会对性能造成影响的计算节点，使用到了redis，但是根据线上日志及代码逻辑判断，RF1121 并不会走到该处。对于同步redis 是否会影响服务整体性能，经过对服务器性能的验证，排除该种可能。整体响应p99 下降很多，而Redis 命令执行耗时一般在个位数ms，俩者不在一个数量级，则暂时排除该种可能。
 
 #### 进程内大数据读取方式改变
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > image-20230727154546099.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/global_data_change.png)
 
 该 GlobalData.global_flow_data 为 50000 行左右的json格式数据，在改写方式后，少做一次操作，但是该类型在使用时均为引用类型，并不存在额外的内存分配之类的，在经过测试之后，发现更改前后性能差别很小，则暂时排除该种可能。
 
 #### 在节点执行结束时增加await操作
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > image-20230727155842524.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/await_change.png)
 
 原来的逻辑中也会在节点结束后进行await get_retry_next_run_time，但是该方法是并无真正的异步操作，实际为同步方法。
 
@@ -73,13 +71,15 @@ https://git.silvrr.com/risk-backend/risk-rule-engine/-/merge_requests/2016/diffs
 #### 阿里云机器性能变化
 磁盘IO变化图：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 截屏2023-07-05 15.33.22.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/ali_machine_change_1.png)
 
 阿里云机器监控指标：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_16885433846583.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/ali_machine_change_2.png)
 
+阿里云机器TCP指标变化：
 
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/ali_machine_change_3.png)
 
 该处对于机器性能指标的变化，很难确定是P99波动引起的原因或者现象，从机器监控上看，运维对比其他部门的服务器IO监控，属于正常范围。vda 如上图显示写入变慢一倍，但是vda 是系统盘，服务部署在vdb，与服务无关，且IO峰值在2000，现在仅达到7-8，影响很小。通过下线流量验证服务器性能，并找阿里云方面确认之后，应该不是服务的原因，暂时排除掉该原因。
 
@@ -87,18 +87,18 @@ https://git.silvrr.com/risk-backend/risk-rule-engine/-/merge_requests/2016/diffs
 #### Redis性能波动
 redis 处理命令总量（断层为前端显示问题）：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_16885493591939.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/redis_change_1.png)
 
 redis 流量：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_16885490116157.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/redis_change_2.png)
 
 引擎服务为独立部署redis，从监控上来看的话，并无问题，遂暂时排除Redis问题。
 
 #### PloarDB 性能波动
 PloarDB 每秒查询数量：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_16885498087263.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/ploardb_change.png)
 
 PloarDB 查询量方面确实存在波动，但该量远未达到其极限，且查询量峰值和P99波动不一致，且无slow sql，遂暂时排除该原因。
 
@@ -110,11 +110,11 @@ PloarDB 查询量方面确实存在波动，但该量远未达到其极限，且
 
 单机器P99 性能较差时请求分布：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 3ff9a4e675bb5550a88cef4060737fb1.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/132_req_1.png)
 
 单机器P99 性能较好时请求分布：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 55be5e323d3e76da337d4da3038dc6cc.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/132_req_2.png)
 
 如上俩图，均为同一台机器，时间范围均为5mins，请求量存在较少的差距，但是请求量的分布在第一个图中峰值可达到40，且存在较多请求间隙；在第二个图中，请求较为稠密，且请求量峰值仅为第一图中的1/3。则在性能较差时，请求量到单台机器上的分布是不均匀的，但是对单台机器的流量分发总量是无问题的。
 
@@ -122,11 +122,11 @@ PloarDB 查询量方面确实存在波动，但该量远未达到其极限，且
 
 单端口P99性能较差时的请求分布：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 9b27a6d2bc59a7ba237412e13227f680.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/9963_req_1.png)
 
 单端口P99性能较好时的请求分布：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 02f2d9b4fbd52d7af3bb8ca313fa2665.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/9663_req_2.png)
 
 由上图可看出，nginx 在对流量分发时是无问题的，无论P99 性能好坏时，nginx对某个端口的流量分发总是均匀的，nginx分发是无问题的。
 
@@ -135,25 +135,23 @@ PloarDB 查询量方面确实存在波动，但该量远未达到其极限，且
 
 4台nginx 整体流量波动：
 
-
-
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_f5cca5fe-36b0-41b1-867f-cd471cc94f86.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/4_nginx_1.png)
 
 4台nginx 上某个url 请求量波动：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_05197433-4a42-4dbf-8ac4-c70ccd17cd62.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/4_nginx_2.png)
 
 不同nginx 间单url请求量差异波动：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > wecom-temp-113545-c978cd92b68f75b3bde3068649214b5b.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/4_nginx_3.png)
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > wecom-temp-90855-c4b1f2072f024988675f12596355f77b.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/4_nginx_4.png)
 
 服务P99变化：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > wecom-temp-50248-8e6f04a11172ac2bf59a1c727f4574e4.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/1121_p99_1.png)
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > wecom-temp-66922-613310bbe6f7c023c8cf6243abc39bbd.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/1121_p99_2.png)
 
 由上俩图可发现，当nginx RF1121 流量发生波动时，对应的RF1121的P99耗时则增高。该处的原因，假设一开始各nginx到服务器的流量分发均匀，但是当某台nginx的流量产生波动时，不同nginx分发RF1121的请求量会发生变化，导致不同nginx的分发速率不一致，会导致一些请求的分发会出发重合，导致请求分布不均匀，但是单台nginx到单台机器的单个端口仍可保持均匀。
 
@@ -182,19 +180,19 @@ ipB:port2
 ipC:port2
 在某次服务发版前后的单nginx到单后端机器请求分布情况：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > wecom-temp-99394-58aef1e2bbc85ccfbe3fef16157f673f.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/132_release_req_1.png)
 
 由上图可见，在某次发版之后，流量较为均匀，无大的波动，则会保持均匀较长的时间，P99 最差时 峰值为15，较好时为7-8，但仍存在规律性的峰值，是不正常的表现。则更改nginx配置并重启，开始验证我们关于nginx到后端服务的流量分发猜想：
 
 更改nginx配置之后的单nginx到单后端机器分布情况：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_5cb8d30a-dd55-4e67-8818-01f461c4a3bc.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/132_release_req_2.png)
 
 如上图，不存在7-8的规律峰值，最大峰值仅为2-3左右，请求分布更加均匀。
 
 服务P99 耗时：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_9ec0d01a-cb8d-4dd3-8d8a-3d825149bae4.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/1121_release_p99_1.png)
 
 服务P99 耗时出现明显下降（1/3），但仍存在明显的P99毛刺，只是相对之前没那么明显，则下一步从LB到nginx流量分配做改进。
 
@@ -203,17 +201,17 @@ ipC:port2
 
 更改LB后不同nginx某url请求量：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_a2b44ab6-ab19-4890-960b-a7159af38c49.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/1121_release_req.png)
 
 服务P99响应：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_3a89685a-8a40-4638-b8b3-936ce0821dd8.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/1121_release_p99_2.png)
 
 如上图可知，在我们更改LB后，服务P99性能存在明显的改善，但是仍存在部分p99的毛刺，这些部分应该是由于虽然我们流量均衡分发，但是我们采用多台nginx的情况下，仍然会存在部分端口的流量不均衡。
 
 更改LB后服务P99毛刺：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_72158887-6fef-4004-968f-b79e75c8bd5b.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/1121_release_p99_3.png)
 
 则对于这种情况，因为多台nginx之间是不连通的，之间是没有配合的，所以会出现这些问题，则接下来，我们将从切换单台nginx解决该问题。
 
@@ -222,21 +220,21 @@ ipC:port2
 
 服务P99发生毛刺不同nginx机器p99:
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_9b86bc0e-859a-4e26-9c40-eb50c49f8323.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/nginx_p99_1.png)
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_47927e6d-7322-478e-9ae0-e0b1d099b78b.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/nginx_p99_1.png)
 
 单台nginx到单个端口的请求分布：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_795cd014-4b39-4302-8118-d72b50c11b07.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/nginx_req_1.png)
 
 多台nginx到单个端口的请求分布：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_ff7f921d-263d-4c6f-997d-cc18ba72ca5d.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/nginx_req_2.png)
 
 耗时的端口：
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_25f2ca59-89a2-4adf-9713-ff118ab69b4a.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/nginx_req_3.png)
 
 由上述图可知，在服务p99发生波动时，一定是俩台或者俩台以上的nginx P99出现波动，不存在单台nginx P99出现波动的情况。则出现P99 波动时，是俩台或者多台nginx的请求发生了部分重叠，导致有些端口的请求QPS达到4，会出现耗时高的情况，则开始下线nginx的操作。
 
@@ -244,13 +242,13 @@ ipC:port2
 
 下线俩台nginx后服务P99:
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_7424b05e-a276-4d60-a9f1-d6c7172f558b.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/1121_nginx_p99_1.png)
 
 在下线俩台nginx后服务p99 明显改善，在此基础上继续下线nginx服务器数量，将nginx服务器数量减少为1:
 
 线上1台nginx时服务P99:
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > 企业微信截图_7d4e00fa-75a7-4136-aa13-69104bd3b7af.png
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/1121_nginx_p99_2.png)
 
 如上图，服务P99得到了进一步的改善，且平稳运行，则在最后，使用单台nginx（主备）的情况下，无需再使用7层LB，将LB切换为4层，开始逐步下线冗余后端机器，最终在下线一半机器的情况下，服务P99仅为未优化前的1/3
 
@@ -259,8 +257,7 @@ ipC:port2
 
 优化后服务P99（稳定在350ms 左右）:
 
-大风控中心 > 风控规则引擎响应时长波动问题优化（2023-07） > image-20230807171733126.png
-
+![img](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/engine_LB_optimize/1121_end_p99.png)
 ## 未来规划
 ### APISIX 网关替代 NGINX
 
@@ -275,7 +272,6 @@ ipC:port2
 在每个服务器前做负载均衡，则可从工程层面解决掉服务器内部进程负载的问题，使多核服务器中的不同进程调度更加均衡，提高服务运行效率；目前已经在微服务改造调研阶段。
 
 # 参考文章
-https://git.silvrr.com/risk-backend/risk-rule-engine/-/merge_requests/2016/diffs
 https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/
 http://nginx.org/en/docs/http/ngx_http_upstream_module.html
 http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download/pdf/DNSLB11825295_zh-CN_cn_181214111834_public_df469752bf687c1ff97c4331eba6090f.pdf
