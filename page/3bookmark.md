@@ -37,7 +37,6 @@ type: page
 </html>
 
 
-
 ## Comments
 
 {% include comments.html %}
