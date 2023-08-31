@@ -65,7 +65,7 @@ P99变化时间：
 
 原来的逻辑中也会在节点结束后进行await get_retry_next_run_time，但是该方法是并无真正的异步操作，实际为同步方法。
 
-### 阿里云机器性能波动
+## 阿里云机器性能波动
 由于之后在未发版的情况下，服务P99 性能出现明显下降，开始怀疑到阿里云提供的服务器性能发生了波动，遂开始定位服务器性能。
 
 #### 阿里云机器性能变化
@@ -83,7 +83,7 @@ P99变化时间：
 
 该处对于机器性能指标的变化，很难确定是P99波动引起的原因或者现象，从机器监控上看，运维对比其他部门的服务器IO监控，属于正常范围。vda 如上图显示写入变慢一倍，但是vda 是系统盘，服务部署在vdb，与服务无关，且IO峰值在2000，现在仅达到7-8，影响很小。通过下线流量验证服务器性能，并找阿里云方面确认之后，应该不是服务的原因，暂时排除掉该原因。
 
-### 外部Redis PloarDB等组件性能波动
+## 外部Redis PloarDB等组件性能波动
 #### Redis性能波动
 redis 处理命令总量（断层为前端显示问题）：
 
@@ -102,7 +102,7 @@ PloarDB 每秒查询数量：
 
 PloarDB 查询量方面确实存在波动，但该量远未达到其极限，且查询量峰值和P99波动不一致，且无slow sql，遂暂时排除该原因。
 
-### 请求流量分布不均匀
+## 请求流量分布不均匀
 引擎服务流量分发现状：服务部署在m台服务器上，每台服务器上启动n个进程，在nginx侧将流量采用轮询策略分发到m*n个端口上，基于后端服务器端口做的流量分发。
 
 #### 请求分布情况分析
@@ -272,11 +272,11 @@ ipC:port2
 在每个服务器前做负载均衡，则可从工程层面解决掉服务器内部进程负载的问题，使多核服务器中的不同进程调度更加均衡，提高服务运行效率；目前已经在微服务改造调研阶段。
 
 # 参考文章
-https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/
-http://nginx.org/en/docs/http/ngx_http_upstream_module.html
-http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download/pdf/DNSLB11825295_zh-CN_cn_181214111834_public_df469752bf687c1ff97c4331eba6090f.pdf
-https://iq.opengenus.org/layer-4-layer-7-load-balancing/
-https://blog.envoyproxy.io/introduction-to-modern-network-load-balancing-and-proxying-a57f6ff80236
+https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/<br>
+http://nginx.org/en/docs/http/ngx_http_upstream_module.html<br>
+http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/download/pdf/DNSLB11825295_zh-CN_cn_181214111834_public_df469752bf687c1ff97c4331eba6090f.pdf<br>
+https://iq.opengenus.org/layer-4-layer-7-load-balancing/<br>
+https://blog.envoyproxy.io/introduction-to-modern-network-load-balancing-and-proxying-a57f6ff80236<br>
 
 
 
