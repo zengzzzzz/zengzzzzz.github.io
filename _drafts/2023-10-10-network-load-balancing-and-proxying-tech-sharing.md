@@ -278,34 +278,79 @@ N 个边缘路由器以相同的 BGP 权重通告所有 VIP。通过 ECMP（Equa
 
 #### service mesh
 
-主要采用
+![image-20231016143317235](/Users/zengzh/Library/Application Support/typora-user-images/image-20231016143317235.png)
+
+LB在云原生应用程序中是动态的，由于所有的动态部分，该应用程序可能具有不同的性能。服务网格中的负载均衡器在向各个实例发送请求之前需要考虑它们的运行状况。它可以阻止或路由流量绕过不健康的实例，帮助避免紧急情况并提供更可靠的服务。
+
+负载均衡器可以主动轮询服务网格的服务发现部分，检查运行状况良好的实例，也可以被动响应失败的请求并仅根据性能切断实例的流量。
+
+除此之外，服务网格中的负载平衡使用算法来决定如何在网络上路由流量。过去，路由很简单，使用循环或随机路由等方法。借助现代服务网格，负载平衡算法现在会考虑后端实例上的延迟和可变负载。例如 Istio、envoy、LINKERD、CONDUIT等。
 
 #### API Gateway
 
-#### WAF
+![image-20231016144409301](/Users/zengzh/Library/Application Support/typora-user-images/image-20231016144409301.png)
+
+API 网关位于每个 API 请求的执行路径上，是一个数据平面，用于接收来自客户端的请求，并可以在最终将这些请求反向代理到底层 API 之前强制执行流量和用户策略。在将请求代理回原始客户端之前，它还可以（而且很可能会）对从底层 API 收到的响应执行策略。
+
+API 网关可以具有内置控制平面来管理和配置数据平面的功能，也可将数据平面和控制平面全部捆绑到同一进程中。
+
+API 网关部署在其自己的实例（其自己的 VM、主机或 Pod）中，与客户端和 API 分开。例如envoy、NGINX、APISIX、KONG等。
 
 #### 可扩展性
 
+![image-20231016145713518](/Users/zengzh/Library/Application Support/typora-user-images/image-20231016145713518.png)
+
+采用集群化部署LB，确保负载均衡器自身不会成为单点故障点。可基于负载均衡器实际负载，对其进行自动伸缩容，维持稳定的负载均衡集群。
+
 #### 分布式追踪
+
+![image-20231016151534346](/Users/zengzh/Library/Application Support/typora-user-images/image-20231016151534346.png)
+
+负载均衡器可通过插件的方式集成分布式链路追踪框架，实现分布式链路追踪功能。例如：Zipkin、OpenTracing 等。
 
 #### 协议支持
 
+现代 L7 负载均衡器正在显式添加对更多协议的支持，对应用层协议了解的越多，则可处理更多更复杂的事情，包括观测输出、高级负载均衡和路由等等。现在大部分的L7都会显式支持解析和路由HTTP/1、HTTP/2、HTTPS、websocket、gRPC、Redis、MongoDB、MySQL、Kafaka等。
+
 ## 4层负载均衡与7层负载均衡的对比
+
+现在不少应用对L4 L7负载均衡均提供了技术支持，例如NGINX、Envoy、Traefik 等。但是为方便我们在日常工作中的技术选型，结合上述内容，仍对L4 L7负载均衡在以下方面做出对比分析，并描述在实际使用场景中的应用。
 
 ### 对比分析
 
-我们前面已经解释了为什么 L7 负载均衡器对现代协议如此重要，接下来详细讨论 L7LB 的 功能特性。这是否意味着 L4LB 没用了？不！虽然我认为在 service-to-service 通信中 L7 负载均衡最终会完全取代 L4 负载均衡，但 L4 负载均衡在边缘仍然是非常有用的，因为几 乎所有的现代大型分布式架构都是**在公网流量入口使用 L4/L7 两级负载均衡架构**。 在边缘 L7 负载均衡器之前部署 L4 负载均衡器的原因：
+- OSI层级
+  - 4层负载均衡：工作在OSI模型的传输层（第四层），主要基于IP地址和端口号进行负载均衡，通常实施在网络层。
+  - 7层负载均衡：工作在OSI模型的应用层（第七层），深入到应用层协议（如HTTP、HTTPS）的内容中，根据请求的内容，如URL、HTTP标头等进行负载均衡。
+- 负载分配粒度
+  - 4层负载均衡：分配请求基于传输层协议（通常是TCP或UDP）的端口号，不了解请求的具体内容。通常基于源IP和目标IP地址以及端口号进行负载均衡。
+  - 7层负载均衡：分配请求基于应用层协议和内容，可以识别不同的HTTP请求，并做出基于请求的智能决策。除了传输层负载均衡算法外，还可以基于应用层数据，如HTTP请求头、URL路径等，进行更高级的路由和负载均衡。
+- 应用场景
+  - 4层负载均衡：适用于大多数基于TCP/UDP的应用，一般用于网络边缘，如数据库、DNS等。
+  - 7层负载均衡：适用于Web应用，需要深度内容分发和应用层路由的应用，一般使用在service to service 场景中，如网站、API服务等。
 
-- L7LB 承担的更多工作是复杂的分析、变换、以及应用流量路由，他们处理原始流量的能 力（按每秒处理的包数和字节数衡量）比经过优化的 L4 负载均衡器要差。这使得 L4LB 更适合处理特定类型的攻击，例如 SYN 泛洪、通用包（generic packet）泛洪攻击等
-- L7LB 部署的更多更频繁，bug 也比 L4LB 多。在 L7 之前加一层 L4LB，可以在调整 L7 部署的时候，对其做健康检查和流量排除（drain），这比（单纯使用）现代 L4LB 要简单的多，后者通常使用 BGP 和 ECMP（后面会介绍）。最后，因为 L7 功能更复杂， 它们的 bug 也会比 L4 多，在前面有一层 L4LB 能及时将有问题的 L7LB 拉出
+### 实际使用场景
 
-### 使用场景
+在 service-to-service 通信中 L7 负载均衡是可以完全取代 L4 负载均衡，但 L4 负载均衡在边缘仍非常重要，大多数现代大型分布式架构都是在公网流量入口使用 L4/L7 两级负载均衡架构。 其原因主要在于：
+
+- L7 LB 承担的更多工作是复杂的分析、变换、以及应用流量路由，一般情况下处理原始流量的能力比 L4 负载均衡器要差。则L4 LB 更适合处理特定类型的攻击，例如 SYN 泛洪、通用包泛洪攻击等。
+- L7 LB 功能更多更复杂且部署的更多更频繁，bug 也比 L4 LB 多。在 L7 之前加一层 L4LB，可以在调整 L7 部署的时候，对其做健康检查和流量排除。
 
 ## 全局负载均衡及负载均衡的未来
 
 ### 全局负载均衡
 
-### 负载均衡的未来
+![image-20231016113729825](/Users/zengzh/Library/Application Support/typora-user-images/image-20231016113729825.png)
+
+每个 sidecar 同时和位于三个 zone 的后端通信，90% 的流量到了 zone C，而 zone A 和 B 各只有 5%；sidecar 和后端都定期向全局负载均衡器汇报状态，全局负载均衡器可以基于 延迟、代价、负载、当前失败率等参数做出决策，全局负载均衡器定期配置每个 sidecar 的路由信息。
+
+### 负载均衡的现在与未来
+
+- 云原生架构：云原生应用程序采用微服务架构，未来的负载均衡将与容器编排平台（如Kubernetes）集成，以支持动态负载均衡、服务发现和自动扩展。
+- 安全性增强：安全性将继续是一个关键关注点。负载均衡设备将提供更多的安全功能，如DDoS攻击检测和防护、Web应用程序防火墙（WAF）、SSL终结等，以保护应用程序免受各种网络威胁。
+- 边缘计算支持：随着边缘计算的兴起，负载均衡将更频繁地出现在边缘节点上，以将应用程序和内容更接近用户。这将需要负载均衡设备在边缘节点上提供高性能和低延迟的负载均衡服务。
+- 资源利用效率：负载均衡将变得更加高效，以降低成本。
+- API驱动的配置：未来的负载均衡设备将提供更多的API和自动化工具，使开发人员能够以编程方式配置和管理负载均衡策略，从而实现更快速的应用部署和更新。
+- 全局负载均衡：数据平面与控制平面的分离。
 
 ## 参考文章
 
@@ -353,6 +398,8 @@ https://blog.envoyproxy.io/service-mesh-data-plane-vs-control-plane-2774e720f7fc
 
 https://istio.io/
 
+https://chat.openai.com/
+
 https://getnelson.io/
 
 https://github.com/airbnb/synapse
@@ -372,3 +419,13 @@ https://www.nginx.com/resources/glossary/layer-4-load-balancing/
 https://github.com/acassen/keepalived
 
 https://www.hashicorp.com/blog/layer-7-observability-with-consul-service-mesh
+
+https://levelup.gitconnected.com/l4-vs-l7-load-balancing-d2012e271f56
+
+https://www.cloudbees.com/blog/an-overview-of-the-service-mesh-and-its-tooling-options
+
+https://konghq.com/blog/enterprise/the-difference-between-api-gateways-and-service-mesh
+
+https://www.qingcloud.com/products/loadbalancer/
+
+https://www.alibabacloud.com/help/en/tracing-analysis/latest/use-zipkin-to-perform-tracing-analysis-on-nginx
