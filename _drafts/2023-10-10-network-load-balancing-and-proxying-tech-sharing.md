@@ -46,11 +46,11 @@ LB，是一种电子计算机技术，用来在多个计算机、网络连接、
 
 #### without LB
 
-![image-20231015021246624](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015021246624.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/without_LB.png)
 
 #### with LB
 
-![image-20231015021330364](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015021330364.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/with_LB.png)
 
 ### 负载均衡器的作用
 
@@ -62,7 +62,7 @@ LB，是一种电子计算机技术，用来在多个计算机、网络连接、
 
 ##### server-side discovery
 
-![image-20231015130453749](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015130453749.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/server_side_discovery.png)
 
 #### 健康检查
 
@@ -74,7 +74,7 @@ LB定时主动向后端服务发起TCP连接或HTTP请求等，以此来衡量�
 
 ###### TCP 健康检查
 
-![image-20231015132428027](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015132428027.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/TCP_health_check.png)
 
 ##### 被动健康检查
 
@@ -90,19 +90,19 @@ LB在向后端服务转发流量的同时记录后端服务的健康状态，达
 
 将请求按顺序轮流地分配到后端服务器上，它均衡地对待后端的每一台服务器，而不关心服务器实际的连接数和当前的系统负载。
 
-![image-20231015135835556](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015135835556.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/robin_load.png)
 
 ###### 随机
 
 通过系统的随机算法，根据后端服务器的列表大小值来随机选取其中的一台服务器进行访问。由概率统计理论可以得知，随着客户端调用服务端的次数增多，其实际效果越来越接近于平均分配调用量到后端的每一台服务器，也就是轮询的结果
 
-![image-20231015135916438](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015135916438.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/random.png)
 
 ###### 加权轮询法
 
 不同的后端服务器可能机器的配置和当前系统的负载并不相同，因此它们的抗压能力也不相同。给配置高、负载低的机器配置更高的权重，让其处理更多的请；而配置低、负载高的机器，给其分配较低的权重，降低其系统负载，加权轮询能很好地处理这一问题，并将请求顺序且按照权重分配到后端。
 
-![image-20231015135905716](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015135905716.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/weight_robin_load.png)
 
 ###### 加权随机
 
@@ -112,7 +112,7 @@ LB在向后端服务转发流量的同时记录后端服务的健康状态，达
 
 源地址哈希的思想是根据获取客户端的IP地址，通过哈希函数计算得到的一个数值，用该数值对服务器列表的大小进行取模运算，得到的结果便是客服端要访问服务器的序号。采用源地址哈希法进行负载均衡，同一IP地址的客户端，当后端服务器列表不变时，它每次都会映射到同一台后端服务器进行访问。
 
-![image-20231015140006603](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015140006603.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/ip_hash.png)
 
 ##### 动态负载均衡
 
@@ -122,7 +122,7 @@ LB在向后端服务转发流量的同时记录后端服务的健康状态，达
 
 积压连接数最少的一台服务器来处理当前的请求，尽可能地提高后端服务的利用效率，将负责合理地分流到每一台服务器。
 
-![image-20231015135931928](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015135931928.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/least_conn.png)
 
 ###### 加权最小连接法
 
@@ -142,13 +142,13 @@ P2C（Power of Two Choices）算法是一种基于随机化的负载均衡算法
 
 with weight
 
-![image-20231015142431109](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015142431109.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/P2C_with_weight.png)
 
 with P2C
 
-![image-20231015142553538](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015142553538.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/P2C.png)
 
-![image-20231015143117445](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015143117445.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/P2C_best.png)
 
 #### 粘性会话
 
@@ -156,11 +156,11 @@ with P2C
 
 ###### IP地址
 
-![image-20231015151654128](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015151654128.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/session_ip.png)
 
 ###### Cookie
 
-![image-20231015151724786](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015151724786.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/session_cookie.png)
 
 #### TLS终止
 
@@ -176,7 +176,7 @@ with P2C
 
 ###### 阿里云DDoS原生防护
 
-![image-20231015153122376](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015153122376.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/ali_defence.png)
 
 #### 控制平面
 
@@ -184,7 +184,7 @@ with P2C
 
 ###### Istio  Control Panel
 
-![image-20231015154402551](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015154402551.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/Istio_control_panel.png)
 
 综上，LB主要用于提高后端服务应用程序可用性、应用程序可扩展性、应用程序安全、应用程序性能等。
 
