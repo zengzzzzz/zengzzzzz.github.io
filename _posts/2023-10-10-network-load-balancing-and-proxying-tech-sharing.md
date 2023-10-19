@@ -192,7 +192,7 @@ with P2C
 
 #### Middle proxy
 
-![image-20231015160026547](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015160026547.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/LB_middle.png)
 
 中间代理模式为最常见的代理模式，其优点是简单，用户一般只需要通过 DNS 连接到 LB。其缺点是，这种模式下负载均衡器（包含集群）是单点的（single point of failure），且横向扩展有瓶颈。
 
@@ -200,7 +200,7 @@ with P2C
 
 #### Edge proxy
 
-![image-20231015160034771](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015160034771.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/LB_edge.png)
 
 边缘代理拓扑只是中间代理拓扑的一个变种， 这种情况下负载均衡器可以从公网直接访问。该场景下， 负载均衡器通常还要提供额外的API 网关功能， 例如 TLS termination、限速、鉴权，以及复杂的流量路由等等。
 
@@ -208,13 +208,13 @@ with P2C
 
 #### Embedded client library
 
-![image-20231015160043547](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015160043547.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/LB_middle.png)
 
 客户端内嵌库，为解决中间代理等固有的单点、扩展等问题，可以将负载均衡 器已函数库的形式内嵌到客户端。该方式最大的有点在于将 LB 的全部功能下放到每个客户端，从而完全避免了单点和扩展问题，其缺点在于用的每种语言实现相应的库，在大型服务架构，很可能导致生产集群中同时运行多个版本的客户端， 增加运维成本。常见的有gRPC、Finagle、 Hystrix等。
 
 #### Sidecar proxy
 
-![image-20231015160100377](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015160100377.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/LB_sideCar.png)
 
 sidecar 即为客户端内嵌库拓扑的一个变种，也被称为 service mesh。与客户端内嵌库不同点在于，sidecar是将流量导到另一个进程，牺牲一点（延迟）性能，实现客户端内嵌库模式的所有好处，而无任何语言绑定。常见的有 HAProxy、NGINX、Envoy、Linkerd等。
 
@@ -224,13 +224,13 @@ sidecar 即为客户端内嵌库拓扑的一个变种，也被称为 service mes
 
 传统的L4 TCP 负载均衡器，客户端建立一个 TCP 连接到 LB。LB 终止这个连接，选择一个后端，然后建立一个新的 TCP 连接到后端。L4 负载均衡器只工作在 L4 TCP/UDP connection/session 。因此，LB 在双向来回转发字节，保证属于同一 session 的请求可以到同一后端。L4 LB 不会感知其转发请求所属应用的任何细节，可以是任何其他应用层协议。L4 在仅对整体流量负责，不会对具体的请求负责，当使用keep-alive时，可能会较多的存在具体的请求分布不均匀。
 
-![image-20231015162638940](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015162638940.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/L4_example.png)
 
 ### L4 相关内容
 
 ###### TCP/UDP termination
 
-![image-20231015185003781](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015185003781.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/L4_termination.png)
 
 该模式中，会使用两个独立的 TCP 连接：一个用于客户端和负载均衡器之间，一个用于负载均衡器和后端之间。
 
@@ -238,25 +238,25 @@ sidecar 即为客户端内嵌库拓扑的一个变种，也被称为 service mes
 
 ###### TCP/UDP passthrough
 
-![image-20231015185322512](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015185322512.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/L4_NAT.png)
 
 在该模式中，TCP连接不会被LB terminate，而是在建立连接跟踪和网络地址转换（NAT）之后直接转发给选中的后端。例如，我们假设客户端正在和负载均衡器 A通信，选中的后端是 B。当客户端的 TCP 包到达负载均衡器时，负载均衡器会将包的目的 IP/port 换成 B，以及将源 IP/port 换成负载均衡器 自己的 IP/port。当应答包回来的时候，负载均衡器再做相反的转换。该种模式主要的优点在于无须缓存任何TCP连接窗口，性能及资源消耗较小；允许后端进行自主拥塞控制，该模式不参与拥塞控制，可使后端服务自行选择。
 
 ###### DSR
 
-![image-20231015190242564](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015190242564.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/L4_DSR.png)
 
 该模式基于passthrough，只允许进来的流量 /请求（ingress/request）经过 LB，而出去的流量/响应（egress/response）直接 从服务器返回到客户端。设计该模式的主要原因在于，在一些场景中，响应的流量远大于请求流量，采用DSR，可以节约LB的成本，提高可靠性，但仍然存在一些与passthrough不一致的方面，LB无法知道TCP连接的完整状态；LB 可能不采用NAT 而是GRE，将IP包给到后端服务，后端可以直接将应答包返回客户端；后端可能需要参与负载均衡过程，配置GRE。
 
 ###### HA pair
 
-![image-20231015191536121](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015191536121.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/L4_HA.png)
 
 为避免单个L4挂掉导致应用不可用，LB 一般以HA pair 方式部署。典型的HA 负载均衡设置包括： 一对 HA 边缘路由器提供若干虚拟 IP（virtual IP，VIP），并通过 BGP (Border Gateway Protocol) 协议宣布 VIP。主边缘路由器（primary）的 BGP 权重比备边缘路由器（backup）的高， 在正常情况下处理所有流量。primary L4LB 向边缘路由器宣告它的权重比 backup LB 大，因此正常情况下它 处理所有流量。两个边缘路由器和两个负载均衡器都是交叉连接的。如果一个边缘路由器或一 个负载均衡器挂了，或者由于某种原因之前声明的 BGP 权重收回了， backup 马上可以接受所有流量。在该种模式下资源利用率较低，主备仍可能同时挂掉。
 
 ###### Consistent Hashing
 
-![image-20231015194305957](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015194305957.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/L4_consistent_hash.png)
 
 该模式为大规模并行L4 负载均衡系统，基于集群化与一致性哈希实现容错与可扩展，其工作原理如下：
 
@@ -270,7 +270,7 @@ N 个边缘路由器以相同的 BGP 权重通告所有 VIP。通过 ECMP（Equa
 
 ### 基本工作原理
 
-![image-20231015200414847](C:\Users\10269\AppData\Roaming\Typora\typora-user-images\image-20231015200414847.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/L7_example.png)
 
 在该模式下，客户端与 LB 只建立一个 HTTP /2 TCP 连接。LB 接下来和两个后端建立连接。当客户端向 LB 发送两个 HTTP/2 流（streams ）时，stream 1 会被发送到后端 1，而 stream 2 会被发送到后端 2。因此，不同客户 端的请求数量差异巨大，这些请求也可以被高效地、平衡地分发到后端。
 
@@ -278,7 +278,7 @@ N 个边缘路由器以相同的 BGP 权重通告所有 VIP。通过 ECMP（Equa
 
 #### service mesh
 
-![image-20231016143317235](/Users/zengzh/Library/Application Support/typora-user-images/image-20231016143317235.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/servcie_mesh.png)
 
 LB在云原生应用程序中是动态的，由于所有的动态部分，该应用程序可能具有不同的性能。服务网格中的负载均衡器在向各个实例发送请求之前需要考虑它们的运行状况。它可以阻止或路由流量绕过不健康的实例，帮助避免紧急情况并提供更可靠的服务。
 
@@ -288,7 +288,7 @@ LB在云原生应用程序中是动态的，由于所有的动态部分，该应
 
 #### API Gateway
 
-![image-20231016144409301](/Users/zengzh/Library/Application Support/typora-user-images/image-20231016144409301.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/api_gateway.png)
 
 API 网关位于每个 API 请求的执行路径上，是一个数据平面，用于接收来自客户端的请求，并可以在最终将这些请求反向代理到底层 API 之前强制执行流量和用户策略。在将请求代理回原始客户端之前，它还可以（而且很可能会）对从底层 API 收到的响应执行策略。
 
@@ -298,13 +298,13 @@ API 网关部署在其自己的实例（其自己的 VM、主机或 Pod）中，
 
 #### 可扩展性
 
-![image-20231016145713518](/Users/zengzh/Library/Application Support/typora-user-images/image-20231016145713518.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/cluster.png)
 
 采用集群化部署LB，确保负载均衡器自身不会成为单点故障点。可基于负载均衡器实际负载，对其进行自动伸缩容，维持稳定的负载均衡集群。
 
 #### 分布式追踪
 
-![image-20231016151534346](/Users/zengzh/Library/Application Support/typora-user-images/image-20231016151534346.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/trace.png)
 
 负载均衡器可通过插件的方式集成分布式链路追踪框架，实现分布式链路追踪功能。例如：Zipkin、OpenTracing 等。
 
@@ -339,7 +339,7 @@ API 网关部署在其自己的实例（其自己的 VM、主机或 Pod）中，
 
 ### 全局负载均衡
 
-![image-20231016113729825](/Users/zengzh/Library/Application Support/typora-user-images/image-20231016113729825.png)
+![image](https://raw.githubusercontent.com/zengzzzzz/zengzzzzz-img/main/L4_L7_network/global_LB.png)
 
 每个 sidecar 同时和位于三个 zone 的后端通信，90% 的流量到了 zone C，而 zone A 和 B 各只有 5%；sidecar 和后端都定期向全局负载均衡器汇报状态，全局负载均衡器可以基于 延迟、代价、负载、当前失败率等参数做出决策，全局负载均衡器定期配置每个 sidecar 的路由信息。
 
