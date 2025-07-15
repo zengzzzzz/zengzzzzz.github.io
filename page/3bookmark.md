@@ -14,7 +14,6 @@ type: page
 <html>
 <head>
     <title>GitHub Markdown Viewer</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <div id="markdown-content"></div>
@@ -27,9 +26,8 @@ type: page
         fetch(githubContentUrl)
             .then(response => response.text())
             .then(decodedContent => {
-                // Use marked.js to convert Markdown to HTML
-                const renderedHtml = marked(decodedContent);
-                document.getElementById('markdown-content').innerHTML = renderedHtml;
+                // Display the content in the designated div
+                document.getElementById('markdown-content').innerText = decodedContent;
             })
             .catch(error => {
                 console.error('Error fetching content:', error);
